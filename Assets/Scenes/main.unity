@@ -966,6 +966,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Rogue (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4116691395123944037, guid: 8d1a19480daaf1642a97f051bf5ed3f1, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
