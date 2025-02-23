@@ -30,18 +30,18 @@ public class CharacterMovement : MonoBehaviour
         m_Rigidbody = GetComponent<Rigidbody>();
     }
 
-    //private void OnEnable()
-    //{
-    //    m_Rigidbody.isKinematic = false;
+    private void OnEnable()
+    {
+        m_Rigidbody.isKinematic = false;
 
-    //    m_MovementInputValue = 0f;
-    //    m_TurnInputValue = 0f;
-    //}
+        // m_MovementInputValue = 0f;
+        // m_TurnInputValue = 0f;
+    }
 
-    //private void OnDisable()
-    //{
-    //    m_Rigidbody.isKinematic = true;
-    //}
+    private void OnDisable()
+    {
+        m_Rigidbody.isKinematic = true;
+    }
 
     void FixedUpdate()
     {
