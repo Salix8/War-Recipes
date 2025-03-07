@@ -66,7 +66,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 8186d6bdddd67764dbe9713d47d4cc01, type: 2}
     - target: {fileID: 919132149155446097, guid: 624cee8fcd417674eade2fa052b4cecc, type: 3}
       propertyPath: m_Name
-      value: Rogue
+      value: RogueA
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 624cee8fcd417674eade2fa052b4cecc, type: 3}
       propertyPath: m_Layer
@@ -95,10 +95,13 @@ PrefabInstance:
       addedObject: {fileID: 6372060383508550297}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 624cee8fcd417674eade2fa052b4cecc, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 5184576458200660421}
+      addedObject: {fileID: 9041203895633773350}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 624cee8fcd417674eade2fa052b4cecc, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 9041203895633773350}
+      addedObject: {fileID: 6674373820235224880}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 624cee8fcd417674eade2fa052b4cecc, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8401595018650642406}
   m_SourcePrefab: {fileID: 100100000, guid: 624cee8fcd417674eade2fa052b4cecc, type: 3}
 --- !u!1 &7681803995697827605 stripped
 GameObject:
@@ -177,109 +180,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &5184576458200660421
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7681803995697827605}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f012cfaf0b289df448b44fc104e760e4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MoveAction:
-    m_Name: Move
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: 2290f5d3-c503-4d2b-9bf4-8f918d23342b
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings:
-    - m_Name: WASD
-      m_Id: b53efc33-723b-4242-9165-e2704da686d0
-      m_Path: 2DVector
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Move
-      m_Flags: 4
-    - m_Name: up
-      m_Id: bd122cbb-29b8-43dc-a780-f7ebc5190aa6
-      m_Path: <Keyboard>/w
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Move
-      m_Flags: 8
-    - m_Name: down
-      m_Id: edd59704-01e9-47a8-a82c-1fa7e7839997
-      m_Path: <Keyboard>/s
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Move
-      m_Flags: 8
-    - m_Name: left
-      m_Id: 72e2938d-d8f7-4ac1-82b9-49abd60dc76d
-      m_Path: <Keyboard>/a
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Move
-      m_Flags: 8
-    - m_Name: right
-      m_Id: 0a9e745a-13a3-4eab-80be-646226354a24
-      m_Path: <Keyboard>/d
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Move
-      m_Flags: 8
-    - m_Name: Arrow
-      m_Id: ff128e00-4194-4ee9-a1d4-fea515277682
-      m_Path: 2DVector
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Move
-      m_Flags: 4
-    - m_Name: up
-      m_Id: 3f5f8e5e-8706-4497-8bce-ba4aacbb8f6b
-      m_Path: <Keyboard>/upArrow
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Move
-      m_Flags: 8
-    - m_Name: down
-      m_Id: 1ddcff81-d136-44bb-9f1c-c3b1dd2d30eb
-      m_Path: <Keyboard>/downArrow
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Move
-      m_Flags: 8
-    - m_Name: left
-      m_Id: af0967b2-c271-4839-b38f-a7e0f2b51f04
-      m_Path: <Keyboard>/leftArrow
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Move
-      m_Flags: 8
-    - m_Name: right
-      m_Id: ac46f28d-9591-4e89-9fd7-757e5eaf0c21
-      m_Path: <Keyboard>/rightArrow
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Move
-      m_Flags: 8
-    m_Flags: 0
-  m_Speed: 5
-  m_TurnSpeed: 180
 --- !u!82 &9041203895633773350
 AudioSource:
   m_ObjectHideFlags: 0
@@ -377,3 +277,38 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &6674373820235224880
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7681803995697827605}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4c18998a6e15494d92dbb83d22a3fa6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 6372060383508550297}
+--- !u!195 &8401595018650642406
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7681803995697827605}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 3
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
