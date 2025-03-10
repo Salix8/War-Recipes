@@ -609,7 +609,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneList: {fileID: 11400000, guid: cd86e2ccedf25204a963c3e6c7425cbd, type: 2}
   maxScenesInStack: 5
-  enableDebugLogs: 1
+  enableDebugLogs: 0
 --- !u!4 &1015632790
 Transform:
   m_ObjectHideFlags: 0

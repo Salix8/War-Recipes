@@ -63,20 +63,39 @@ public class WASDMovement : MonoBehaviour
     {
         if (isRolling) return; // No mover si está rodando
 
-        Vector3 moveDirection = new Vector3(moveInput.x, 0f, moveInput.y).normalized; // Normalizar para evitar movimiento más rápido en diagonal
-        if (moveDirection.magnitude >= 0.1f) // Umbral para evitar movimiento muy pequeño
+        if (moveInput.magnitude >= 0.1f) // Si hay input, calcular dirección
         {
-            animator.SetBool("IsMoving", true);
-            animator.SetFloat("Speed", moveDirection.magnitude); // Puedes usar la magnitud como "Speed"
+            // Obtener la dirección de la cámara sin la componente Y
+            Vector3 cameraForward = Camera.main.transform.forward;
+            Vector3 cameraRight = Camera.main.transform.right;
+
+            cameraForward.y = 0; // Asegurarse de que el personaje no se incline
+            cameraRight.y = 0;
+
+            cameraForward.Normalize();
+            cameraRight.Normalize();
+
+            // Convertir el input en movimiento relativo a la cámara
+            Vector3 moveDirection = (cameraForward * moveInput.y + cameraRight * moveInput.x).normalized;
+
+            // Mover el personaje
             characterController.Move(moveDirection * moveSpeed * Time.deltaTime);
-            transform.forward = moveDirection; // Rotar al personaje en la dirección del movimiento
+
+            // Rotar el personaje en la dirección del movimiento
+            transform.forward = moveDirection;
+
+            // Actualizar animaciones
+            animator.SetBool("IsMoving", true);
+            animator.SetFloat("Speed", moveInput.magnitude);
         }
         else
         {
+            // Detener animaciones cuando no hay movimiento
             animator.SetBool("IsMoving", false);
             animator.SetFloat("Speed", 0f);
         }
     }
+
 
     void Roll()
     {
@@ -89,17 +108,92 @@ public class WASDMovement : MonoBehaviour
     IEnumerator RollCoroutine()
     {
         float rollTimer = 0f;
-        Vector3 rollDirection = new Vector3(moveInput.x, 0f, moveInput.y).normalized;
-        if (rollDirection == Vector3.zero) rollDirection = transform.forward; // Si no hay input de movimiento, rodar hacia adelante
 
+        // Obtener la dirección de la cámara sin la componente Y
+        Vector3 cameraForward = Camera.main.transform.forward;
+        Vector3 cameraRight = Camera.main.transform.right;
+
+        cameraForward.y = 0;
+        cameraRight.y = 0;
+
+        cameraForward.Normalize();
+        cameraRight.Normalize();
+
+        // Convertir el input en movimiento relativo a la cámara
+        Vector3 rollDirection = (cameraForward * moveInput.y + cameraRight * moveInput.x).normalized;
+
+        // Si no hay input de movimiento, rodar hacia adelante según la orientación del personaje
+        if (rollDirection == Vector3.zero)
+            rollDirection = transform.forward;
+
+        // Aplicar movimiento de rodar
         while (rollTimer < rollDuration)
         {
             characterController.Move(rollDirection * moveSpeed * rollSpeedMultiplier * Time.deltaTime);
             rollTimer += Time.deltaTime;
             yield return null;
         }
+
         isRolling = false;
     }
+    /*IEnumerator RollCoroutine()
+    {
+        isRolling = true;
+
+        // Iniciar la animación del roll
+        animator.CrossFade("Roll", 0.1f); 
+
+        // Esperar un frame para asegurarnos de que la animación ha comenzado
+        yield return null;
+
+        // Obtener la duración de la animación de roll
+        float rollAnimDuration = animator.GetCurrentAnimatorStateInfo(0).length;
+
+        // Obtener la dirección de la cámara sin la componente Y
+        Vector3 cameraForward = Camera.main.transform.forward;
+        Vector3 cameraRight = Camera.main.transform.right;
+
+        cameraForward.y = 0;
+        cameraRight.y = 0;
+
+        cameraForward.Normalize();
+        cameraRight.Normalize();
+
+        // Convertir el input en movimiento relativo a la cámara
+        Vector3 rollDirection = (cameraForward * moveInput.y + cameraRight * moveInput.x).normalized;
+
+        // Si no hay input de movimiento, rodar hacia adelante según la orientación del personaje
+        if (rollDirection == Vector3.zero)
+            rollDirection = transform.forward;
+
+        // Mover al personaje durante la duración de la animación de roll
+        float rollSpeed = moveSpeed * rollSpeedMultiplier;
+        float elapsedTime = 0f;
+
+        while (elapsedTime < rollAnimDuration)
+        {
+            characterController.Move(rollDirection * rollSpeed * Time.deltaTime);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        // Restaurar estado después del roll
+        isRolling = false;
+
+        // Asegurar que la animación de movimiento se actualiza correctamente
+        if (moveInput.magnitude >= 0.1f)
+        {
+            animator.SetBool("IsMoving", true);
+            animator.SetFloat("Speed", moveInput.magnitude);
+        }
+        else
+        {
+            animator.SetBool("IsMoving", false);
+            animator.SetFloat("Speed", 0f);
+        }
+    }
+*/
+
 
     void Attack1()
     {

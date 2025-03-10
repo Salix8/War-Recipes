@@ -6,21 +6,21 @@ public class PointClickMovement : MonoBehaviour
 {
     public Animator animator;
     private NavMeshAgent navMeshAgent;
-    private CharacterInputActions inputActions; // InputAction asset
+    private CharacterInputActions inputActions;
+
+    [SerializeField] private LayerMask groundLayer; // Capa del suelo
+    [SerializeField] private LayerMask interactableLayer; // Capa para objetos interactuables
 
     void Awake()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
-        inputActions = new CharacterInputActions(); // Crea una instancia de InputActions
-        // inputActions.WASD.Disable(); // Habilita el ActionMap de PointClick
-        inputActions.PointClick.Enable(); // Habilita el ActionMap de PointClick
-        inputActions.PointClick.ClickPosition.performed += OnClickPosition; // Suscribe al evento de ClickPosition
+        inputActions = new CharacterInputActions();
+        inputActions.PointClick.Enable();
     }
 
     void OnDestroy()
     {
-        inputActions.PointClick.ClickPosition.performed -= OnClickPosition; // Desuscribe para evitar errores
-        inputActions.PointClick.Disable(); // Deshabilita el ActionMap al destruir el objeto
+        inputActions.PointClick.Disable();
     }
 
     void Start()
@@ -30,19 +30,25 @@ public class PointClickMovement : MonoBehaviour
             animator = GetComponent<Animator>();
             if (animator == null)
             {
-                Debug.LogError("Animator no encontrado en el personaje. Asegúrate de que el personaje tenga un componente Animator.");
-                enabled = false; // Desactivar el script si no hay Animator
+                Debug.LogError("Animator no encontrado en el personaje.");
+                enabled = false;
             }
         }
     }
 
     void Update()
     {
-        // Actualizar la animación de caminar en función de la velocidad del NavMeshAgent
-        if (navMeshAgent.velocity.magnitude > 0.1f) // Umbral para evitar animaciones en movimiento muy pequeño
+        // Solo procesamos si el usuario hizo clic realmente
+        if (Mouse.current.leftButton.wasPressedThisFrame)
+        {
+            ProcessClick();
+        }
+
+        // Actualizar animación según la velocidad del NavMeshAgent
+        if (navMeshAgent.velocity.magnitude > 0.1f)
         {
             animator.SetBool("IsMoving", true);
-            animator.SetFloat("Speed", navMeshAgent.velocity.magnitude); // Puedes usar la magnitud de la velocidad como "Speed"
+            animator.SetFloat("Speed", navMeshAgent.velocity.magnitude);
         }
         else
         {
@@ -51,28 +57,34 @@ public class PointClickMovement : MonoBehaviour
         }
     }
 
-    void OnClickPosition(InputAction.CallbackContext context)
+    void ProcessClick()
     {
-        Vector2 mousePosition = context.ReadValue<Vector2>();
+        Vector2 mousePosition = Mouse.current.position.ReadValue();
         Ray ray = Camera.main.ScreenPointToRay(mousePosition);
         RaycastHit hit;
 
-        if (Physics.Raycast(ray, out hit))
+        // 1️ Verificar si clicamos en un objeto interactuable
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, interactableLayer))
         {
-            navMeshAgent.destination = hit.point; // Establece el destino del NavMeshAgent al punto donde hizo clic el ratón.
+            InteractWithObject(hit.collider.gameObject);
+            return; // Evitar que el personaje se mueva si clicamos en un objeto
+        }
+
+        // 2️ Verificar si clicamos en el suelo
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, groundLayer))
+        {
+            NavMeshHit navHit;
+            if (NavMesh.SamplePosition(hit.point, out navHit, 1.0f, NavMesh.AllAreas))
+            {
+                navMeshAgent.SetDestination(navHit.position);
+            }
         }
     }
 
-    public void PlayPickUpAnimation()
+    void InteractWithObject(GameObject obj)
     {
         animator.SetTrigger("IsPickingUp");
-    }
-
-    // Función para llamar cuando se interactúa con un objeto en la escena A (ejemplo)
-    public void InteractWithObject()
-    {
-        PlayPickUpAnimation();
-        Debug.Log("Interactuando con objeto en Escena A");
-        // Aquí iría la lógica de interacción con el objeto (ej. servir comida)
+        Debug.Log("Interactuando con objeto: " + obj.name);
+        // Aquí puedes agregar más lógica para recoger/interactuar con el objeto
     }
 }
