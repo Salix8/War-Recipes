@@ -6,10 +6,13 @@ public class WASDMovement : MonoBehaviour
 {
     public Animator animator;
     public CharacterController characterController;
-    public float moveSpeed = 5f;
     public float rollSpeedMultiplier = 2f;
     public float rollDuration = 0.5f;
     public float attackingIdleDuration = 1f;
+    public float moveSpeed = 5f;
+    public float acceleration = 3f;
+    public float deceleration = 5f;
+    private float currentSpeed = 0f;
 
     private CharacterInputActions inputActions;
     private Vector2 moveInput;
@@ -63,6 +66,19 @@ public class WASDMovement : MonoBehaviour
     {
         if (isRolling) return; // No mover si está rodando
 
+        bool isMoving = moveInput.magnitude >= 0.1f;
+
+        // Aplicar aceleración o desaceleración progresiva
+        if (isMoving)
+        {
+            currentSpeed = Mathf.MoveTowards(currentSpeed, moveSpeed, acceleration * Time.deltaTime);
+        }
+        else
+        {
+            currentSpeed = Mathf.MoveTowards(currentSpeed, 0f, deceleration * Time.deltaTime);
+        }
+
+
         if (moveInput.magnitude >= 0.1f) // Si hay input, calcular dirección
         {
             // Obtener la dirección de la cámara sin la componente Y
@@ -86,7 +102,7 @@ public class WASDMovement : MonoBehaviour
 
             // Actualizar animaciones
             animator.SetBool("IsMoving", true);
-            animator.SetFloat("Speed", moveInput.magnitude);
+            animator.SetFloat("Speed", currentSpeed);
         }
         else
         {

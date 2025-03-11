@@ -693,7 +693,7 @@ PrefabInstance:
       value: 'Movimiento: WASD
 
         Ataque: Click izquierdo > cargar el arco,
-        click derecho > disparar arco
+        + disparar arco
 
         Roll: Shift'
       objectReference: {fileID: 0}

@@ -441,44 +441,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cf0d462fd051bf34a932b2225597b1e2, type: 3}
---- !u!1 &1309452657 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 612983442728348356, guid: a5d31e8659c5fb444addcccff1f3cc75, type: 3}
-  m_PrefabInstance: {fileID: 2025423385}
-  m_PrefabAsset: {fileID: 0}
---- !u!143 &1309452658 stripped
-CharacterController:
-  m_CorrespondingSourceObject: {fileID: 310000071244390825, guid: a5d31e8659c5fb444addcccff1f3cc75, type: 3}
-  m_PrefabInstance: {fileID: 2025423385}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &1309452661 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 7660829036491437508, guid: a5d31e8659c5fb444addcccff1f3cc75, type: 3}
-  m_PrefabInstance: {fileID: 2025423385}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1309452664 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 273050093948809342, guid: a5d31e8659c5fb444addcccff1f3cc75, type: 3}
   m_PrefabInstance: {fileID: 2025423385}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1309452665
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1309452657}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21c4841c967660444a92e1edf75a6c66, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 1309452661}
-  characterController: {fileID: 1309452658}
-  moveSpeed: 5
-  rollSpeedMultiplier: 2
-  rollDuration: 0.5
-  attackingIdleDuration: 1
 --- !u!1001 &2000308323
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -573,12 +540,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6931420859392800092, guid: 0172db3138785e945ad6abbe9aec78ba, type: 3}
       propertyPath: m_text
-      value: 'Movimiento: WASD
-
-        Ataque1:  Click izquierdo Ataque2: Click
-        derecho
-
-        Roll: Shift'
+      value: "Movimiento: WASD\nAtaque1:  Click izquierdo \nAtaque2: Click derecho\nRoll:
+        Shift"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -653,14 +616,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RogueB
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 5414368159487205245, guid: a5d31e8659c5fb444addcccff1f3cc75, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 612983442728348356, guid: a5d31e8659c5fb444addcccff1f3cc75, type: 3}
-      insertIndex: 5
-      addedObject: {fileID: 1309452665}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a5d31e8659c5fb444addcccff1f3cc75, type: 3}
 --- !u!1001 &529815821297646360
 PrefabInstance:
