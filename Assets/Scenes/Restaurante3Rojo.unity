@@ -119,6 +119,17 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &91139057 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2893592481354752334, guid: 2f1669777384a49499bc7d4a8f417b0c, type: 3}
+  m_PrefabInstance: {fileID: 258278708}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &258278708
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -130,10 +141,6 @@ PrefabInstance:
     - target: {fileID: 1727612570574109586, guid: 2f1669777384a49499bc7d4a8f417b0c, type: 3}
       propertyPath: m_Name
       value: CanvasRestaurante
-      objectReference: {fileID: 0}
-    - target: {fileID: 2553094399089702580, guid: 2f1669777384a49499bc7d4a8f417b0c, type: 3}
-      propertyPath: sceneToLoad
-      value: Combate3Rojo
       objectReference: {fileID: 0}
     - target: {fileID: 5465708452918368309, guid: 2f1669777384a49499bc7d4a8f417b0c, type: 3}
       propertyPath: m_Pivot.x
@@ -730,6 +737,76 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
+--- !u!1 &1835161417 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 856335589702562202, guid: 2f1669777384a49499bc7d4a8f417b0c, type: 3}
+  m_PrefabInstance: {fileID: 258278708}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &2161914904001371951
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1053871047808634755, guid: cf0d462fd051bf34a932b2225597b1e2, type: 3}
+      propertyPath: m_Name
+      value: PopupManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 1693844709303362669, guid: cf0d462fd051bf34a932b2225597b1e2, type: 3}
+      propertyPath: popupPanel
+      value: 
+      objectReference: {fileID: 1835161417}
+    - target: {fileID: 1693844709303362669, guid: cf0d462fd051bf34a932b2225597b1e2, type: 3}
+      propertyPath: closeButton
+      value: 
+      objectReference: {fileID: 91139057}
+    - target: {fileID: 8717007663814067934, guid: cf0d462fd051bf34a932b2225597b1e2, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 767.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8717007663814067934, guid: cf0d462fd051bf34a932b2225597b1e2, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 305
+      objectReference: {fileID: 0}
+    - target: {fileID: 8717007663814067934, guid: cf0d462fd051bf34a932b2225597b1e2, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8717007663814067934, guid: cf0d462fd051bf34a932b2225597b1e2, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8717007663814067934, guid: cf0d462fd051bf34a932b2225597b1e2, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8717007663814067934, guid: cf0d462fd051bf34a932b2225597b1e2, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8717007663814067934, guid: cf0d462fd051bf34a932b2225597b1e2, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8717007663814067934, guid: cf0d462fd051bf34a932b2225597b1e2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8717007663814067934, guid: cf0d462fd051bf34a932b2225597b1e2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8717007663814067934, guid: cf0d462fd051bf34a932b2225597b1e2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: cf0d462fd051bf34a932b2225597b1e2, type: 3}
 --- !u!1001 &2463112222632888416
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -802,3 +879,4 @@ SceneRoots:
   - {fileID: 2463112222632888416}
   - {fileID: 1752317634}
   - {fileID: 1566568479}
+  - {fileID: 2161914904001371951}
