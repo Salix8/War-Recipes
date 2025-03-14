@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 624cee8fcd417674eade2fa052b4cecc, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 624cee8fcd417674eade2fa052b4cecc, type: 3}
       propertyPath: m_LocalPosition.y
@@ -292,10 +292,10 @@ MonoBehaviour:
   animator: {fileID: 6372060383508550297}
   groundLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   interactableLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 2048
 --- !u!195 &8401595018650642406
 NavMeshAgent:
   m_ObjectHideFlags: 0
