@@ -396,6 +396,63 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1365992069
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1731111183625289925, guid: 879da8e3927f6964bb4fd9be9020d0cf, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 1731111183625289925, guid: 879da8e3927f6964bb4fd9be9020d0cf, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1731111183625289925, guid: 879da8e3927f6964bb4fd9be9020d0cf, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -10.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1731111183625289925, guid: 879da8e3927f6964bb4fd9be9020d0cf, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1731111183625289925, guid: 879da8e3927f6964bb4fd9be9020d0cf, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1731111183625289925, guid: 879da8e3927f6964bb4fd9be9020d0cf, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1731111183625289925, guid: 879da8e3927f6964bb4fd9be9020d0cf, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1731111183625289925, guid: 879da8e3927f6964bb4fd9be9020d0cf, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1731111183625289925, guid: 879da8e3927f6964bb4fd9be9020d0cf, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1731111183625289925, guid: 879da8e3927f6964bb4fd9be9020d0cf, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5827720165375551976, guid: 879da8e3927f6964bb4fd9be9020d0cf, type: 3}
+      propertyPath: m_Name
+      value: Fregadero
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 879da8e3927f6964bb4fd9be9020d0cf, type: 3}
 --- !u!1 &1606612292
 GameObject:
   m_ObjectHideFlags: 0
@@ -892,3 +949,4 @@ SceneRoots:
   - {fileID: 2025169305}
   - {fileID: 1606612296}
   - {fileID: 631639763}
+  - {fileID: 1365992069}

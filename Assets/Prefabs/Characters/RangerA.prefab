@@ -1093,6 +1093,7 @@ GameObject:
   - component: {fileID: 3226179794172042052}
   - component: {fileID: 7503078622259718602}
   - component: {fileID: 59011159829949939}
+  - component: {fileID: 7578670291362077785}
   m_Layer: 10
   m_Name: RangerA
   m_TagString: Player
@@ -1327,6 +1328,18 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &7578670291362077785
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4758952534449701625}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2505b840c6853dd45a8d6f2e34effa7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4772529032407295131
 GameObject:
   m_ObjectHideFlags: 0
