@@ -64,6 +64,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: WizardB
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4acc2934a02cc3b4e8f200e3a389418f, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 2941851319393102480, guid: 4acc2934a02cc3b4e8f200e3a389418f, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -257,10 +261,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 6717830348896798626}
   characterController: {fileID: 7521304965709055622}
-  moveSpeed: 5
   rollSpeedMultiplier: 2
   rollDuration: 0.5
   attackingIdleDuration: 1
+  moveSpeed: 5
+  acceleration: 3
+  deceleration: 5
 --- !u!143 &7521304965709055622
 CharacterController:
   m_ObjectHideFlags: 0
