@@ -388,6 +388,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PopupManager
       objectReference: {fileID: 0}
+    - target: {fileID: 1053871047808634755, guid: cf0d462fd051bf34a932b2225597b1e2, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1693844709303362669, guid: cf0d462fd051bf34a932b2225597b1e2, type: 3}
       propertyPath: popupPanel
       value: 
