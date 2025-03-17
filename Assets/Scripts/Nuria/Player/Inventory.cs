@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
-    public string itemEnMano = "";
-    public int cantidadItem = 0;
+    public string itemEnMano = "platos sucios";
+    public int cantidadItem;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -14,5 +14,10 @@ public class Inventory : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void VaciarInventario () {
+        itemEnMano = "";
+        cantidadItem = 0;
     }
 }

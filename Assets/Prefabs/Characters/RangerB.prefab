@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 16ce1d2696d3776409ea94d000881ae2, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 1.6497955
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 16ce1d2696d3776409ea94d000881ae2, type: 3}
       propertyPath: m_LocalPosition.y
@@ -18,7 +18,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 16ce1d2696d3776409ea94d000881ae2, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2
+      value: -1.2468605
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 16ce1d2696d3776409ea94d000881ae2, type: 3}
       propertyPath: m_LocalRotation.w
@@ -99,10 +99,13 @@ PrefabInstance:
       addedObject: {fileID: 4737213244160330338}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 16ce1d2696d3776409ea94d000881ae2, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1371647186809974990}
+      addedObject: {fileID: 8095715658796639948}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 16ce1d2696d3776409ea94d000881ae2, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 8095715658796639948}
+      addedObject: {fileID: 2304717947701622246}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 16ce1d2696d3776409ea94d000881ae2, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3949960464685426804}
   m_SourcePrefab: {fileID: 100100000, guid: 16ce1d2696d3776409ea94d000881ae2, type: 3}
 --- !u!1 &7120632281878936863 stripped
 GameObject:
@@ -251,24 +254,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &1371647186809974990
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7120632281878936863}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21c4841c967660444a92e1edf75a6c66, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 7847392317958068009}
-  characterController: {fileID: 8095715658796639948}
-  moveSpeed: 5
-  rollSpeedMultiplier: 2
-  rollDuration: 0.5
-  attackingIdleDuration: 1
 --- !u!143 &8095715658796639948
 CharacterController:
   m_ObjectHideFlags: 0
@@ -294,3 +279,37 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0.1, y: 1.5, z: 0.2}
+--- !u!114 &2304717947701622246
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7120632281878936863}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2505b840c6853dd45a8d6f2e34effa7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemEnMano: platos sucios
+  cantidadItem: 8
+--- !u!114 &3949960464685426804
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7120632281878936863}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31f3daa5df56a6649bc49d5d1d524998, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 7847392317958068009}
+  characterController: {fileID: 8095715658796639948}
+  rollSpeedMultiplier: 2
+  rollDuration: 0.5
+  attackingIdleDuration: 1
+  moveSpeed: 5
+  acceleration: 3
+  deceleration: 5
