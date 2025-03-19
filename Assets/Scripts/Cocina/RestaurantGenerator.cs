@@ -64,14 +64,15 @@ public class RestaurantGenerator : MonoBehaviour
         List<Vector3> wallPositions = new List<Vector3>();
         List<Quaternion> wallRotations = new List<Quaternion>();
 
-        float wallOffset = 1.2f; // Ajuste para unir los walls (que sea un wall uniforme)
+        float wallOffset = 0.2f; // Ajuste para unir los walls (que sea un wall uniforme)
         float wallSpacing = 1.8f; // Espacio de los walls respecto a los floors
 
         // Genera posiciones y rotaciones para los muros en los bordes del suelo
-        for (int x = 0; x < width; x++) // Borde horizontal superior e inferior
+        int x;
+        for (x = 0, wallOffset = 0.2f; x < width; x++, wallOffset += 0.2f) // Borde horizontal superior e inferior
         {
-            Vector3 bottomWallPos = new Vector3(x * tileSize, 0, -1 * tileSize + wallSpacing);
-            Vector3 topWallPos = new Vector3(x * tileSize, 0, height * tileSize - wallSpacing);
+            Vector3 bottomWallPos = new Vector3(x * tileSize - wallOffset, 0, -1 * tileSize + wallSpacing);
+            Vector3 topWallPos = new Vector3(x * tileSize - wallOffset, 0, height * tileSize - wallSpacing);
 
             wallPositions.Add(bottomWallPos);
             wallRotations.Add(Quaternion.identity);
@@ -80,10 +81,11 @@ public class RestaurantGenerator : MonoBehaviour
             wallRotations.Add(Quaternion.identity);
         }
 
-        for (int z = 0; z < height; z++) // Borde vertical izquierdo y derecho
+        int z;
+        for (z = 0, wallOffset = 0.2f; z < height; z++, wallOffset += 0.2f) // Borde vertical izquierdo y derecho
         {
-            Vector3 leftWallPos = new Vector3(-1 * tileSize + wallSpacing, 0, z * tileSize);
-            Vector3 rightWallPos = new Vector3(width * tileSize - wallSpacing, 0, z * tileSize);
+            Vector3 leftWallPos = new Vector3(-1 * tileSize + wallSpacing, 0, z * tileSize - wallOffset);
+            Vector3 rightWallPos = new Vector3(width * tileSize - wallSpacing, 0, z * tileSize - wallOffset);
 
             wallPositions.Add(leftWallPos);
             wallRotations.Add(Quaternion.Euler(0, 90, 0));
@@ -106,7 +108,7 @@ public class RestaurantGenerator : MonoBehaviour
         wallRotations.RemoveAt(randomIndex);
 
         // ubicaciones ventanas
-        int windowCount = Random.Range(2, 5);
+        int windowCount = Random.Range(5, 8);
         List<Vector3> windowPositions = new List<Vector3>();
         List<Quaternion> windowRotations = new List<Quaternion>();
 
@@ -143,6 +145,26 @@ public class RestaurantGenerator : MonoBehaviour
             GameObject wall = Instantiate(wallPrefab, wallPositions[i], wallRotations[i]);
             wall.transform.SetParent(wallsParent);
         }
+
+        // Al hacer el WallOffset y juntar todos los muros un poco para que no se vean las marcas se debe crear la ultima esquina
+        Vector3 bottomWallPosLast = new Vector3(x * tileSize - wallOffset - 1f, 0, -1 * tileSize + wallSpacing);
+        Vector3 topWallPosLast = new Vector3(x * tileSize - wallOffset - 1f, 0, height * tileSize - wallSpacing);
+        GameObject bottomWall = Instantiate(wallPrefab, bottomWallPosLast, Quaternion.identity);
+        bottomWall.transform.localScale = new Vector3(0.5f, 1f, 1f);
+        bottomWall.transform.SetParent(wallsParent);
+        GameObject topWall = Instantiate(wallPrefab, topWallPosLast, Quaternion.identity);
+        topWall.transform.localScale = new Vector3(0.5f, 1f, 1f);
+        topWall.transform.SetParent(wallsParent);
+
+        Vector3 leftWallPosLast = new Vector3(-1 * tileSize + wallSpacing, 0, z * tileSize - wallOffset - 1f);
+        Vector3 rightWallPosLast = new Vector3(width * tileSize - wallSpacing, 0, z * tileSize - wallOffset - 1f);
+        GameObject leftWall = Instantiate(wallPrefab, leftWallPosLast, Quaternion.Euler(0, 90, 0));
+        leftWall.transform.localScale = new Vector3(0.5f, 1f, 1f);
+        leftWall.transform.SetParent(wallsParent);
+        GameObject rightWall = Instantiate(wallPrefab, rightWallPosLast, Quaternion.Euler(0, 90, 0));
+        rightWall.transform.localScale = new Vector3(0.5f, 1f, 1f);
+        rightWall.transform.SetParent(wallsParent);
+        Debug.Log(wallPositions.Count);
     }
 
 
