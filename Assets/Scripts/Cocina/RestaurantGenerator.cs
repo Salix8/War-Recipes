@@ -48,9 +48,9 @@ public class RestaurantGenerator : MonoBehaviour
 
     void GenerateFloor()
     {
-        for (int x = 0; x < width; x++)
+        for (int x = -1; x < width+1; x++)
         {
-            for (int z = 0; z < height; z++)
+            for (int z = -1; z < height+1; z++)
             {
                 Vector3 position = new Vector3(x * tileSize, 0, z * tileSize);
                 GameObject tile = Instantiate(floorTilePrefab, position, Quaternion.identity);
@@ -94,8 +94,14 @@ public class RestaurantGenerator : MonoBehaviour
             wallPositions.Add(rightWallPos);
             wallRotations.Add(Quaternion.Euler(0, 90, 0));
         }
-
-        float reductionFactor = ((wallPositions.Count / 4.0f - 1) * wallOffset) / tileSize;
+        // Es importante que reductionFactor se calcule aqui ya que el wallPositions.Count
+        Debug.Log($"wallPositions.Count / 4: {wallPositions.Count / 4}\n" +
+            $"(wallPositions.Count / 4 * wallOffsetIncrement): {(wallPositions.Count / 4 * wallOffsetIncrement)}\n" +
+            $"tileSize - (wallPositions.Count / 4 * wallOffsetIncrement): {tileSize - (wallPositions.Count / 4 * wallOffsetIncrement)}");
+        float reductionFactor = (tileSize - (((wallPositions.Count / 4)-1) * wallOffsetIncrement))/4;
+        Debug.Log(reductionFactor);
+        wallOffset += wallOffsetIncrement;
+        reductionFactor = 0.45f;
 
         // Ubicaciones puerta y zona de entrega
         int randomIndex = Random.Range(0, wallPositions.Count);
@@ -151,8 +157,6 @@ public class RestaurantGenerator : MonoBehaviour
 
         // Al hacer el WallOffset y juntar todos los muros un poco para que no se vean las marcas se debe crear la ultima esquina
         Debug.Log(reductionFactor);
-        wallOffset += wallOffsetIncrement;
-        reductionFactor = 0.45f;
         Vector3 bottomWallPosLast = new Vector3(x * tileSize - wallOffset - 1f, 0, -1 * tileSize + wallSpacing);
         Vector3 topWallPosLast = new Vector3(x * tileSize - wallOffset - 1f, 0, height * tileSize - wallSpacing);
         GameObject bottomWall = Instantiate(wallPrefab, bottomWallPosLast, Quaternion.identity);

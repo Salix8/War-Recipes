@@ -986,7 +986,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   restaurantGenerator: {fileID: 1343317046}
-  playerPrefab: {fileID: 7681803995697827605, guid: f9ef159df505a3a4c98bc1843e243cd3, type: 3}
+  playerPrefab: {fileID: 174330140736365363, guid: 87a2a7714cc70b5498715cfa4f962f8d, type: 3}
   spawnPointPlayer: {fileID: 247502133}
 --- !u!4 &2078211216
 Transform:
