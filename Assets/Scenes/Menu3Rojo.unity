@@ -607,7 +607,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 044de97e3dbca6e4eba8c928c126ea1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneList: {fileID: 11400000, guid: cd86e2ccedf25204a963c3e6c7425cbd, type: 2}
+  sceneList: {fileID: 11400000, guid: 045dc765fdba54b45b70ea65bfe43ef0, type: 2}
   maxScenesInStack: 5
   enableDebugLogs: 0
 --- !u!4 &1015632790

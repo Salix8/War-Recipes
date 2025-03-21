@@ -34,14 +34,14 @@ public class GameInitializer : MonoBehaviour
         }
 
         GameObject floorObject = floorParent.gameObject;
-        navMeshSurface = floorObject.GetComponent<NavMeshSurface>() ?? floorObject.AddComponent<NavMeshSurface>();
+        // navMeshSurface = floorObject.GetComponent<NavMeshSurface>() ?? floorObject.AddComponent<NavMeshSurface>();
 
         // Configurar la NavMesh para que use los hijos de Floor
-        navMeshSurface.collectObjects = CollectObjects.Children;
+        // navMeshSurface.collectObjects = CollectObjects.Children;
 
         // Construir la NavMesh
-        navMeshSurface.BuildNavMesh();
-        Debug.Log("NavMesh Generada Correctamente.");
+        // navMeshSurface.BuildNavMesh();
+        // Debug.Log("NavMesh Generada Correctamente.");
 
         SpawnPlayer();
     }
