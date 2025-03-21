@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 public class PointClickMovement : MonoBehaviour
 {
     public Animator animator;
-    private NavMeshAgent navMeshAgent;
+    public NavMeshAgent navMeshAgent;
     private CharacterInputActions inputActions;
 
     [SerializeField] private LayerMask groundLayer; // Capa del suelo
