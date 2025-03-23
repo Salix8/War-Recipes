@@ -5579,6 +5579,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1048944562574826669, guid: 7f19037c0e6c231449144b89c495f32f, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2255174140001659457, guid: 7f19037c0e6c231449144b89c495f32f, type: 3}
       propertyPath: m_Name
       value: CombatTerrain
