@@ -3,29 +3,29 @@ using UnityEngine;
 
 public class TableManager : MonoBehaviour
 {
-    public List<Transform> tables; // Lista de mesas en el restaurante
+    public List<Transform> chairs; // Lista de todas las sillas disponibles
 
-    private Queue<Transform> availableTables = new Queue<Transform>();
+    private Queue<Transform> availableChairs = new Queue<Transform>();
 
     void Start()
     {
-        foreach (Transform table in tables)
+        foreach (Transform chair in chairs)
         {
-            availableTables.Enqueue(table);
+            availableChairs.Enqueue(chair);
         }
     }
 
-    public Transform GetAvailableTable()
+    public Transform GetAvailableChair()
     {
-        if (availableTables.Count > 0)
+        if (availableChairs.Count > 0)
         {
-            return availableTables.Dequeue();
+            return availableChairs.Dequeue();
         }
         return null;
     }
 
-    public void ReleaseTable(Transform table)
+    public void ReleaseChair(Transform chair)
     {
-        availableTables.Enqueue(table);
+        availableChairs.Enqueue(chair);
     }
 }

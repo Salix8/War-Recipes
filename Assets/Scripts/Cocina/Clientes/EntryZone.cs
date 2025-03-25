@@ -6,20 +6,14 @@ public class EntryZone : MonoBehaviour
 
     void Start()
     {
-        customerManager = FindObjectOfType<CustomerManager>();
+        customerManager = FindFirstObjectByType<CustomerManager>();
     }
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Customer"))
+        if (other.CompareTag("Player"))
         {
-            // Lógica para manejar la entrada del cliente
-            // Por ejemplo, puedes iniciar el movimiento del cliente hacia una mesa
-            Customer customer = other.GetComponent<Customer>();
-            if (customer != null)
-            {
-                customer.Initialize(customerManager.GetComponent<TableManager>(), customerManager);
-            }
+            customerManager.AssignCustomerToTable();
         }
     }
 }
