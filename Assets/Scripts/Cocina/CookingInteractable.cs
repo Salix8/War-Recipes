@@ -23,12 +23,12 @@ public class CookingInteractable : MonoBehaviour
                 buttonCollider = button.AddComponent<BoxCollider2D>();
                 buttonCollider.isTrigger = true;
             }
-            var buttonScript = button.GetComponent<ButtonManager>();
-            if (buttonScript == null)
+            var cookingButton = button.GetComponent<CookingButton>();
+            if (cookingButton == null)
             {
-                buttonScript = button.AddComponent<ButtonManager>();
-                buttonScript.cookingInteractable = this;
+                cookingButton = button.AddComponent<CookingButton>();
             }
+            cookingButton.cookingInteractable = this;
         }
         else
         {

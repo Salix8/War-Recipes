@@ -1,19 +1,14 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EntryZone : MonoBehaviour
 {
     private CustomerManager customerManager;
+    public Button assignButton;
 
     void Start()
     {
         customerManager = FindFirstObjectByType<CustomerManager>();
-    }
-
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            customerManager.AssignCustomerToTable();
-        }
+        assignButton.onClick.AddListener(() => customerManager.AssignCustomersToTables());
     }
 }

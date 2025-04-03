@@ -1,33 +1,47 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class Customer : MonoBehaviour
 {
     private NavMeshAgent agent;
-    private CustomerManager customerManager;
+    private Animator animator;
+    private bool isSeated = false;
 
-    public void Initialize(CustomerManager manager)
+    void Start()
     {
-        customerManager = manager;
         agent = GetComponent<NavMeshAgent>();
+        animator = GetComponent<Animator>();
+    }
 
-        if (agent == null)
+    void Update()
+    {
+        if (!isSeated)
         {
-            Debug.LogError("NavMeshAgent not found on customer.");
-            return;
+            animator.SetBool("IsWalking", agent.velocity.magnitude > 0.1f);
         }
     }
 
-    public void MoveTo(Transform destination)
+    public void MoveToSeat(Transform chair)
     {
-        if (agent != null)
+        if (chair != null)
         {
-            agent.SetDestination(destination.position);
+            agent.SetDestination(chair.position);
+            StartCoroutine(SitOnChair(chair));
         }
     }
 
-    public void LeaveRestaurant()
+    private IEnumerator SitOnChair(Transform chair)
     {
-        customerManager.RemoveCustomer(gameObject);
+        while (agent.pathPending || agent.remainingDistance > 0.1f)
+        {
+            yield return null;
+        }
+
+        isSeated = true;
+        transform.position = chair.position;
+        transform.rotation = chair.rotation;
+        animator.SetTrigger("SitDown");
     }
 }

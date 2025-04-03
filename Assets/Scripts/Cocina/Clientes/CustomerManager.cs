@@ -5,13 +5,13 @@ using UnityEngine.AI;
 
 public class CustomerManager : MonoBehaviour
 {
-    public GameObject customerPrefab; // Prefab del cliente
-    public Transform entryPoint; // Punto de entrada de los clientes
-    public Transform queueStartPoint; // Punto inicial de la cola
-    public float queueSpacing = 1.5f; // Espaciado entre clientes en la cola
-    public float spawnInterval = 5f; // Intervalo de generación de clientes
-    public int maxCustomers = 10; // Máximo de clientes en la escena
-    public int queueSize = 4; // Número máximo de clientes en la cola
+    public GameObject customerPrefab;
+    public Transform entryPoint;
+    public Transform queueStartPoint;
+    public int maxQueueSize = 4;
+    public float queueSpacing = 1.5f;
+    public float spawnInterval = 5f;
+public CustomerButton customerButton;
 
     private List<GameObject> customers = new List<GameObject>();
     private Queue<GameObject> waitingQueue = new Queue<GameObject>();
@@ -25,18 +25,26 @@ public class CustomerManager : MonoBehaviour
             Debug.LogError("TableManager not found!");
             return;
         }
+
         StartCoroutine(SpawnCustomers());
     }
 
-private IEnumerator SpawnCustomers()
-{
-    while (customers.Count < maxCustomers)
+    private IEnumerator SpawnCustomers()
+    {
+        while (true)
+        {
+            if (waitingQueue.Count < maxQueueSize)
+            {
+                SpawnCustomer();
+            }
+            yield return new WaitForSeconds(spawnInterval);
+        }
+    }
+
+    private void SpawnCustomer()
     {
         Vector3 spawnPos = entryPoint.position;
-        NavMeshHit hit;
-
-        // Buscar la posición más cercana en el NavMesh
-        if (NavMesh.SamplePosition(spawnPos, out hit, 2.0f, NavMesh.AllAreas))
+        if (NavMesh.SamplePosition(spawnPos, out NavMeshHit hit, 2.0f, NavMesh.AllAreas))
         {
             GameObject newCustomer = Instantiate(customerPrefab, hit.position, Quaternion.identity);
             customers.Add(newCustomer);
@@ -47,11 +55,7 @@ private IEnumerator SpawnCustomers()
         {
             Debug.LogError("Failed to place customer on NavMesh.");
         }
-
-        yield return new WaitForSeconds(spawnInterval);
     }
-}
-
 
     private void UpdateQueuePositions()
     {
@@ -68,28 +72,18 @@ private IEnumerator SpawnCustomers()
         }
     }
 
-    public void AssignCustomerToTable()
+    public void AssignCustomersToTables()
     {
         if (waitingQueue.Count > 0)
         {
-            GameObject customer = waitingQueue.Dequeue();
             Transform chair = tableManager.GetAvailableChair();
-
             if (chair != null)
             {
-                NavMeshAgent agent = customer.GetComponent<NavMeshAgent>();
-                if (agent != null)
-                {
-                    agent.SetDestination(chair.position);
-                }
+                GameObject customer = waitingQueue.Dequeue();
+                Customer customerScript = customer.GetComponent<Customer>();
+                customerScript.MoveToSeat(chair);
+                UpdateQueuePositions();
             }
-            UpdateQueuePositions();
         }
-    }
-
-    public void RemoveCustomer(GameObject customer)
-    {
-        customers.Remove(customer);
-        Destroy(customer);
     }
 }

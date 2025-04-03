@@ -3,8 +3,7 @@ using UnityEngine;
 
 public class TableManager : MonoBehaviour
 {
-    public List<Transform> chairs; // Lista de todas las sillas disponibles
-
+    public List<Transform> chairs;
     private Queue<Transform> availableChairs = new Queue<Transform>();
 
     void Start()
@@ -28,4 +27,10 @@ public class TableManager : MonoBehaviour
     {
         availableChairs.Enqueue(chair);
     }
+
+    public bool HasAvailableChairs()
+    {
+        return availableChairs.Count > 0;
+    }
 }
+

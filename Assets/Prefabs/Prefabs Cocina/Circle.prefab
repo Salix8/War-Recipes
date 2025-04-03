@@ -100,5 +100,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddda9000e237a6d49b014f3badb41a63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cookingInteractable: {fileID: 0}
-  secondaryButtons: []
