@@ -1,8 +1,7 @@
 fileFormatVersion: 2
-guid: 13f086762e8674530af62b721b1065e3
-NativeFormatImporter:
+guid: 17eccaaf4fc4b460bbfe80bacb3bc357
+PrefabImporter:
   externalObjects: {}
-  mainObjectFileID: 8574412962073106934
   userData: 
   assetBundleName: 
   assetBundleVariant: 
@@ -11,5 +10,5 @@ AssetOrigin:
   productId: 132614
   packageName: Lunar Landscape 3D
   packageVersion: 1.1
-  assetPath: Assets/Art/Lunar Landscape 3D/Resources/Materials/Ground_03.terrainlayer
+  assetPath: Assets/Lunar Landscape 3D/Prefabs/Rocks_02.prefab
   uploadId: 337475
