@@ -41,49 +41,73 @@ public CustomerButton customerButton;
         }
     }
 
-    private void SpawnCustomer()
+private void SpawnCustomer()
+{
+    Vector3 spawnPos = entryPoint.position;
+    if (NavMesh.SamplePosition(spawnPos, out NavMeshHit hit, 2.0f, NavMesh.AllAreas))
     {
-        Vector3 spawnPos = entryPoint.position;
-        if (NavMesh.SamplePosition(spawnPos, out NavMeshHit hit, 2.0f, NavMesh.AllAreas))
+        GameObject newCustomer = Instantiate(customerPrefab, hit.position, Quaternion.identity);
+        customers.Add(newCustomer);
+        waitingQueue.Enqueue(newCustomer);  // Asegúrate de que los clientes estén en la cola
+        Debug.Log("Cliente agregado a la cola: " + newCustomer.name); // Esto confirmará si se agrega a la cola
+        UpdateQueuePositions();
+    }
+    else
+    {
+        Debug.LogError("Error al colocar al cliente en el NavMesh.");
+    }
+}
+
+
+
+
+private void UpdateQueuePositions()
+{
+    int index = 0;
+    foreach (GameObject customer in waitingQueue)
+    {
+        // Calculamos la posición en la fila utilizando un espaciado
+        Vector3 queuePosition = queueStartPoint.position + Vector3.forward * (index * queueSpacing);
+
+        // Asegurarnos de que el cliente se mueva hacia la posición calculada
+        NavMeshAgent agent = customer.GetComponent<NavMeshAgent>();
+        if (agent != null)
         {
-            GameObject newCustomer = Instantiate(customerPrefab, hit.position, Quaternion.identity);
-            customers.Add(newCustomer);
-            waitingQueue.Enqueue(newCustomer);
+            // Establecemos la posición que queremos que el cliente ocupe en la fila
+            agent.SetDestination(queuePosition);
+        }
+        index++;
+    }
+}
+
+public void AssignCustomersToTables()
+{
+    if (waitingQueue.Count > 0)
+    {
+        Transform chair = tableManager.GetAvailableChair();
+        if (chair != null)
+        {
+            GameObject customer = waitingQueue.Dequeue();
+            Customer customerScript = customer.GetComponent<Customer>();
+            customerScript.MoveToSeat(chair);
+
             UpdateQueuePositions();
         }
         else
         {
-            Debug.LogError("Failed to place customer on NavMesh.");
+            Debug.LogError("No hay sillas disponibles en TableManager.");
         }
     }
-
-    private void UpdateQueuePositions()
+    else
     {
-        int index = 0;
-        foreach (GameObject customer in waitingQueue)
-        {
-            Vector3 queuePosition = queueStartPoint.position + Vector3.back * (index * queueSpacing);
-            NavMeshAgent agent = customer.GetComponent<NavMeshAgent>();
-            if (agent != null)
-            {
-                agent.SetDestination(queuePosition);
-            }
-            index++;
-        }
+        Debug.LogError("No hay clientes en la cola para asignar a las mesas.");
     }
+}
 
-    public void AssignCustomersToTables()
-    {
-        if (waitingQueue.Count > 0)
-        {
-            Transform chair = tableManager.GetAvailableChair();
-            if (chair != null)
-            {
-                GameObject customer = waitingQueue.Dequeue();
-                Customer customerScript = customer.GetComponent<Customer>();
-                customerScript.MoveToSeat(chair);
-                UpdateQueuePositions();
-            }
-        }
-    }
+public int GetWaitingQueueCount()
+{
+    return waitingQueue.Count;
+}
+
+
 }
