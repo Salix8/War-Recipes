@@ -73,6 +73,10 @@ PrefabInstance:
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 624cee8fcd417674eade2fa052b4cecc, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 624cee8fcd417674eade2fa052b4cecc, type: 3}
       propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
@@ -142,7 +146,7 @@ Animator:
   m_GameObject: {fileID: 612983442728348356}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 35675510e11401d4abe0d82e97b74310, type: 2}
+  m_Controller: {fileID: 9100000, guid: 127ecc5cfdeaa38489eed320da360a2d, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 1
   m_ApplyRootMotion: 1

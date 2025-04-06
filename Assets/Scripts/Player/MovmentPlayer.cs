@@ -104,7 +104,7 @@ public class MovmentPlayer : MonoBehaviour
         yield return null;
 
         // Obtenemos la duración real de la animación activa
-        float rollAnimDuration = animator.GetCurrentAnimatorStateInfo(0).length;
+        //float rollAnimDuration = animator.GetCurrentAnimatorStateInfo(0).length;
 
         Vector3 rollDirection = GetMoveDirection();
         if (rollDirection == Vector3.zero)
@@ -113,7 +113,7 @@ public class MovmentPlayer : MonoBehaviour
         float elapsed = 0f;
         float dashSpeed = moveSpeed * rollSpeedMultiplier;
 
-        while (elapsed < rollAnimDuration)
+        while (elapsed < 1)
         {
             rb.MovePosition(rb.position + rollDirection * dashSpeed * Time.fixedDeltaTime);
             elapsed += Time.fixedDeltaTime;
