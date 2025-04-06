@@ -1,0 +1,125 @@
+using UnityEngine;
+using UnityEngine.InputSystem;
+using System.Collections;
+
+[RequireComponent(typeof(Rigidbody))]
+public class MovmentPlayer : MonoBehaviour
+{
+    [Header("Parámetros de movimiento")]
+    public float moveSpeed = 5f;
+    public float rollSpeedMultiplier = 2f;
+
+    [Header("Animación")]
+    public Animator animator;
+
+    [SerializeField] private Rigidbody rb;
+
+    private CharacterInputActions inputActions;
+    private Vector2 moveInput;
+    private bool isRolling = false;
+
+    void Awake()
+    {
+        if (animator == null)
+            animator = GetComponent<Animator>();
+        if (rb == null)
+            rb = GetComponent<Rigidbody>();
+
+        rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+        rb.interpolation = RigidbodyInterpolation.Interpolate;
+        rb.collisionDetectionMode = CollisionDetectionMode.Continuous;
+
+        inputActions = new CharacterInputActions();
+        inputActions.PointClick.Disable();
+        inputActions.WASD.Enable();
+
+        inputActions.WASD.Move.performed += ctx => moveInput = ctx.ReadValue<Vector2>();
+        inputActions.WASD.Move.canceled += ctx => moveInput = Vector2.zero;
+        inputActions.WASD.Roll.performed += ctx => TryRoll();
+    }
+
+    void OnDestroy()
+    {
+        inputActions.Disable();
+    }
+
+    void Update()
+{
+    Debug.Log("Input: " + moveInput);
+}
+
+
+    void FixedUpdate()
+    {
+        if (isRolling) return;
+
+        Vector3 direction = GetMoveDirection();
+
+        if (direction.magnitude > 0.1f)
+        {
+            rb.MovePosition(rb.position + direction * moveSpeed * Time.fixedDeltaTime);
+            transform.forward = direction;
+
+            if (animator)
+            {
+                animator.SetBool("IsMoving", true);
+                animator.SetFloat("Speed", moveInput.magnitude);
+            }
+        }
+        else if (animator)
+        {
+            animator.SetBool("IsMoving", false);
+            animator.SetFloat("Speed", 0f);
+        }
+    }
+
+    private Vector3 GetMoveDirection()
+    {
+        Vector3 camForward = Camera.main.transform.forward;
+        Vector3 camRight = Camera.main.transform.right;
+
+        camForward.y = 0f;
+        camRight.y = 0f;
+        camForward.Normalize();
+        camRight.Normalize();
+
+        return (camForward * moveInput.y + camRight * moveInput.x).normalized;
+    }
+
+    private void TryRoll()
+    {
+        if (!isRolling && animator != null)
+        {
+            StartCoroutine(RollCoroutine());
+        }
+    }
+
+    private IEnumerator RollCoroutine()
+    {
+        isRolling = true;
+
+        animator.SetTrigger("IsRolling");
+
+        // Esperamos un frame para que la animación se active
+        yield return null;
+
+        // Obtenemos la duración real de la animación activa
+        float rollAnimDuration = animator.GetCurrentAnimatorStateInfo(0).length;
+
+        Vector3 rollDirection = GetMoveDirection();
+        if (rollDirection == Vector3.zero)
+            rollDirection = transform.forward;
+
+        float elapsed = 0f;
+        float dashSpeed = moveSpeed * rollSpeedMultiplier;
+
+        while (elapsed < rollAnimDuration)
+        {
+            rb.MovePosition(rb.position + rollDirection * dashSpeed * Time.fixedDeltaTime);
+            elapsed += Time.fixedDeltaTime;
+            yield return new WaitForFixedUpdate();
+        }
+
+        isRolling = false;
+    }
+}
