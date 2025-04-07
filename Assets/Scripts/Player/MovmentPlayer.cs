@@ -43,12 +43,6 @@ public class MovmentPlayer : MonoBehaviour
         inputActions.Disable();
     }
 
-    void Update()
-{
-    Debug.Log("Input: " + moveInput);
-}
-
-
     void FixedUpdate()
     {
         if (isRolling) return;

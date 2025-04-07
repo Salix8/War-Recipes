@@ -125,8 +125,7 @@ public class GameManager : MonoBehaviour
         else
         {
             Log("No previous scenes in history.");
-            // Optional: Go back to the main menu if history is empty
-            // ChangeScene(sceneList.sceneNames[0]);
+            ChangeScene(sceneList.sceneNames[0]);
         }
     }
 
