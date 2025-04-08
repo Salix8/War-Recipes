@@ -13,19 +13,24 @@ public class RestaurantGenerator : MonoBehaviour
     public GameObject doorPrefab;
     public GameObject deliveryPrefab;
     public GameObject windowPrefab;
-    public int minWindow = 5;
-    public int maxWindow = 10;
+    [SerializeField] private int minWindow = 5;
+    [SerializeField] private int maxWindow = 10;
 
     [Header("Obstáculos")]
-    public GameObject[] requiredObstacles;
-    public Transform[] requiredSpawnPoints;
-    public GameObject[] randomObstacles;
+    [SerializeField] private GameObject[] obstaclesUtiles;
+    [SerializeField] private GameObject[] randomObstacles;
+    [SerializeField] private int cantidadObstaculos = 5;
+
+
 
     private float tileSize = 4f;
     private Transform floorParent;
     private Transform wallsParent;
     private Transform obstaclesParent;
     private HashSet<Vector3> usedPositions = new HashSet<Vector3>();
+    private Vector3 doorPosition;
+    private Quaternion doorRotation;
+    private HashSet<Vector2Int> casillasOcupadas = new HashSet<Vector2Int>();
 
     public void GenerateEnvironment()
     {
@@ -94,11 +99,11 @@ public class RestaurantGenerator : MonoBehaviour
         }
 
         int doorIndex = validDoorIndexes[Random.Range(0, validDoorIndexes.Count)];
-        Vector3 doorPos = wallPositions[doorIndex];
-        Quaternion doorRot = wallRotations[doorIndex];
+        doorPosition = wallPositions[doorIndex];
+        doorRotation = wallRotations[doorIndex];
         wallPositions.RemoveAt(doorIndex);
         wallRotations.RemoveAt(doorIndex);
-        Instantiate(doorPrefab, doorPos, doorRot, wallsParent);
+        Instantiate(doorPrefab, doorPosition, doorRotation, wallsParent);
 
         int deliveryIndex = validDoorIndexes[Random.Range(0, validDoorIndexes.Count - 1)];
         Vector3 deliveryPos = wallPositions[deliveryIndex];
@@ -122,7 +127,71 @@ public class RestaurantGenerator : MonoBehaviour
         }
     }
 
+    public Vector3 GetDoorPosition()
+    {
+        return doorPosition;
+    }
+
+    public Quaternion GetDoorRotation()
+    {
+        return doorRotation;
+    }
+
+
     void SpawnObstacles()
+    {
+        List<Vector2Int> casillasDisponibles = new List<Vector2Int>();
+
+        // Rellenamos la lista de casillas libres dentro del suelo (sin contar los bordes)
+        for (int x = 0; x < width; x++)
+        {
+            for (int z = 0; z < height; z++)
+            {
+                Vector2Int tile = new Vector2Int(x, z);
+                casillasDisponibles.Add(tile);
+            }
+        }
+
+        // Colocamos objetos útiles en posiciones aleatorias
+        foreach (GameObject objeto in obstaclesUtiles)
+        {
+            if (casillasDisponibles.Count == 0) break;
+
+            int index = Random.Range(0, casillasDisponibles.Count);
+            Vector2Int tile = casillasDisponibles[index];
+            casillasDisponibles.RemoveAt(index);
+            casillasOcupadas.Add(tile);
+
+            Vector3 posicion = TileToWorldPosition(tile);
+            GameObject instancia = Instantiate(objeto, posicion, Quaternion.identity);
+            instancia.transform.SetParent(obstaclesParent);
+        }
+
+        // Colocamos obstáculos aleatorios
+        int colocados = 0;
+        while (colocados < cantidadObstaculos && casillasDisponibles.Count > 0)
+        {
+            int index = Random.Range(0, casillasDisponibles.Count);
+            Vector2Int tile = casillasDisponibles[index];
+            casillasDisponibles.RemoveAt(index);
+            casillasOcupadas.Add(tile);
+
+            Vector3 posicion = TileToWorldPosition(tile);
+            GameObject prefab = randomObstacles[Random.Range(0, randomObstacles.Length)];
+
+            GameObject instancia = Instantiate(prefab, posicion, Quaternion.identity);
+            instancia.transform.SetParent(obstaclesParent);
+            colocados++;
+        }
+
+        Vector3 TileToWorldPosition(Vector2Int tile)
+        {
+            return new Vector3(tile.x * tileSize + tileSize / 2f, 0, tile.y * tileSize + tileSize / 2f);
+        }
+    }
+}
+
+    /*void SpawnObstacles()
     {
         for (int i = 0; i < Mathf.Min(requiredObstacles.Length, requiredSpawnPoints.Length); i++)
         {
@@ -155,8 +224,7 @@ public class RestaurantGenerator : MonoBehaviour
                 }
             }
         }
-    }
-}
+    }*/
 
 
 /*using UnityEngine;

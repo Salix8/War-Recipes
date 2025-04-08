@@ -48,8 +48,8 @@ public class GameInitializer : MonoBehaviour
 
     void SpawnPlayer()
     {
-        Vector3 spawnPosition = spawnPointPlayer.transform.position;
-        Instantiate(playerPrefab, spawnPosition, Quaternion.identity);
-        Debug.Log("Personaje Spawned en: " + spawnPosition);
+        // Vector3 spawnPosition = spawnPointPlayer.transform.position;
+        Instantiate(playerPrefab, restaurantGenerator.GetDoorPosition(), restaurantGenerator.GetDoorRotation());
+        // Debug.Log("Personaje Spawned en: " + spawnPosition);
     }
 }
