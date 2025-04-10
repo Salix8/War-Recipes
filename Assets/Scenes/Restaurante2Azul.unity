@@ -5270,6 +5270,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5058689432833922043, guid: 41901721714a52e4e84b7e3b8fe7e414, type: 3}
   m_PrefabInstance: {fileID: 1553202236}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &457456105
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 457456106}
+  m_Layer: 0
+  m_Name: Asiento3
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &457456106
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 457456105}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 5.477, y: 80.806, z: -89.48}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1408111378}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &461439841 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1726963566679962151, guid: 3fe3d0cf014ced74c8aec2c991a03703, type: 3}
@@ -9314,10 +9345,10 @@ MonoBehaviour:
   chairs:
   - {fileID: 1481387780}
   - {fileID: 2064946729}
-  - {fileID: 774145511}
-  - {fileID: 1621999246}
-  - {fileID: 1870782786}
-  - {fileID: 1514473476}
+  - {fileID: 457456106}
+  - {fileID: 1035571012}
+  - {fileID: 1336285158}
+  - {fileID: 2078814125}
   tableObjects:
   - {fileID: 1584585098}
   - {fileID: 2084179052}
@@ -13501,6 +13532,37 @@ MonoBehaviour:
   m_MaximumFOV: 60
   m_MinimumOrthoSize: 1
   m_MaximumOrthoSize: 5000
+--- !u!1 &1035571011
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1035571012}
+  m_Layer: 0
+  m_Name: Asiento4
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1035571012
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1035571011}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -5.57, y: 80.806, z: -73.98}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1408111378}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1041078761 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: c507b8eb075667f4da61e167075c2176, type: 3}
@@ -17331,6 +17393,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: ed826c3a77c18474e9614032aea6cbd3, type: 3}
   m_PrefabInstance: {fileID: 1334285290}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1336285157
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1336285158}
+  m_Layer: 0
+  m_Name: Asiento5
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1336285158
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1336285157}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -11.505, y: 80.806, z: -81.59}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1408111378}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1348286700
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18093,6 +18186,10 @@ Transform:
   m_Children:
   - {fileID: 1481387780}
   - {fileID: 2064946729}
+  - {fileID: 457456106}
+  - {fileID: 1035571012}
+  - {fileID: 1336285158}
+  - {fileID: 2078814125}
   m_Father: {fileID: 54163046}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1408518926
@@ -19009,7 +19106,7 @@ Transform:
   m_GameObject: {fileID: 1481387779}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.22, y: 80.48, z: -73.97168}
+  m_LocalPosition: {x: 2.2200003, y: 80.806, z: -78.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -26944,7 +27041,7 @@ Transform:
   m_GameObject: {fileID: 2064946728}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.59994316, y: 81.067, z: -81.67168}
+  m_LocalPosition: {x: -0.064, y: 80.806, z: -81.67168}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -27160,6 +27257,37 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 06f87e95af9541747b62d672744fc39d, type: 3}
+--- !u!1 &2078814124
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2078814125}
+  m_Layer: 0
+  m_Name: Asiento6
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2078814125
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2078814124}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -9.422, y: 80.806, z: -89.375}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1408111378}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &2084179052 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2625118720214367735, guid: 3cc56eb5c82839341998323baa80bc2d, type: 3}
