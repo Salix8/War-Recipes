@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.UIElements;
 
 public class RestaurantGenerator : MonoBehaviour
 {
@@ -37,7 +38,7 @@ public class RestaurantGenerator : MonoBehaviour
         CreateParentObjects();
         GenerateFloor();
         GenerateWalls();
-        //SpawnObstacles();
+        SpawnObstacles();
     }
 
     void CreateParentObjects()
@@ -143,9 +144,9 @@ public class RestaurantGenerator : MonoBehaviour
         List<Vector2Int> casillasDisponibles = new List<Vector2Int>();
 
         // Rellenamos la lista de casillas libres dentro del suelo (sin contar los bordes)
-        for (int x = 0; x < width; x++)
+        for (int x = 0; x < width-1; x++)
         {
-            for (int z = 0; z < height; z++)
+            for (int z = 0; z < height-1; z++)
             {
                 Vector2Int tile = new Vector2Int(x, z);
                 casillasDisponibles.Add(tile);
@@ -164,6 +165,7 @@ public class RestaurantGenerator : MonoBehaviour
 
             Vector3 posicion = TileToWorldPosition(tile);
             GameObject instancia = Instantiate(objeto, posicion, Quaternion.identity);
+            Debug.Log(posicion);
             instancia.transform.SetParent(obstaclesParent);
         }
 
@@ -180,12 +182,14 @@ public class RestaurantGenerator : MonoBehaviour
             GameObject prefab = randomObstacles[Random.Range(0, randomObstacles.Length)];
 
             GameObject instancia = Instantiate(prefab, posicion, Quaternion.identity);
+            Debug.Log(posicion);
             instancia.transform.SetParent(obstaclesParent);
             colocados++;
         }
 
         Vector3 TileToWorldPosition(Vector2Int tile)
         {
+            // Debug.Log($"tile.x * tileSize + tileSize / 2f: {tile.x} * {tileSize} + {tileSize} / 2f \n" + "tile.y * tileSize + tileSize / 2f: {tile.y} * {tileSize} + {tileSize} / 2f");
             return new Vector3(tile.x * tileSize + tileSize / 2f, 0, tile.y * tileSize + tileSize / 2f);
         }
     }
