@@ -9,6 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1989455170406910593}
+  - component: {fileID: 6114880672241146731}
+  - component: {fileID: 1225512631245527339}
   m_Layer: 0
   m_Name: HamburguesaCruda
   m_TagString: Untagged
@@ -32,6 +34,33 @@ Transform:
   - {fileID: 1500698193665265181}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6114880672241146731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2382186940441094932}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e451507fb6a05f94f9a26c3a3de9e32a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ingredient: {fileID: 11400000, guid: a6894a9014408534a94542edefad6a73, type: 2}
+--- !u!114 &1225512631245527339
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2382186940441094932}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb1e27b2f92779840bac6feea7090b17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transformedIngredient: {fileID: 11400000, guid: 655dbc1c9ae41004284f4aa22b3d7f85, type: 2}
+  transformType: 1
 --- !u!1001 &1394203228756797942
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -9,6 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4199956997463727266}
+  - component: {fileID: 3734899529650326318}
+  - component: {fileID: 575044576987288584}
   m_Layer: 0
   m_Name: CarneFresca
   m_TagString: Untagged
@@ -32,6 +34,33 @@ Transform:
   - {fileID: 2186891731325901961}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3734899529650326318
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1713086899577627489}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e451507fb6a05f94f9a26c3a3de9e32a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ingredient: {fileID: 11400000, guid: f79cb4519263d93459a5e95852dcb0f9, type: 2}
+--- !u!114 &575044576987288584
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1713086899577627489}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb1e27b2f92779840bac6feea7090b17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transformedIngredient: {fileID: 11400000, guid: 047e01f277095294abfb706c306b1514, type: 2}
+  transformType: 0
 --- !u!1001 &1861076314091830114
 PrefabInstance:
   m_ObjectHideFlags: 0
