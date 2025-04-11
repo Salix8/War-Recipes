@@ -60,7 +60,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   transformedIngredient: {fileID: 11400000, guid: 70d9e302444409e409b00cd6c30c78d3, type: 2}
-  transformType: 0
+  transformType: 1
 --- !u!1001 &7332887146310545787
 PrefabInstance:
   m_ObjectHideFlags: 0
