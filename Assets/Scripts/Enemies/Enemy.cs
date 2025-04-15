@@ -8,12 +8,13 @@ public abstract class Enemy : MonoBehaviour
     public float damage;
     public Ingredient loot;
 
-    protected Transform player;
+    [SerializeField] protected Transform player;
     protected bool isAggro;
 
     public virtual void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player").transform;
+        if (GameObject.FindGameObjectWithTag("Player") != null)
+            player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
     public virtual void TakeDamage(float amount)

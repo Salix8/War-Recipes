@@ -13,6 +13,7 @@ public class MovmentPlayer : MonoBehaviour
     public Animator animator;
 
     [SerializeField] private Rigidbody rb;
+    [SerializeField] private PlayerAttack playerAttack;
 
     private CharacterInputActions inputActions;
     private Vector2 moveInput;
@@ -25,7 +26,7 @@ public class MovmentPlayer : MonoBehaviour
         if (rb == null)
             rb = GetComponent<Rigidbody>();
 
-        rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+        rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY  | RigidbodyConstraints.FreezeRotationZ;
         rb.interpolation = RigidbodyInterpolation.Interpolate;
         rb.collisionDetectionMode = CollisionDetectionMode.Continuous;
 
@@ -36,6 +37,8 @@ public class MovmentPlayer : MonoBehaviour
         inputActions.WASD.Move.performed += ctx => moveInput = ctx.ReadValue<Vector2>();
         inputActions.WASD.Move.canceled += ctx => moveInput = Vector2.zero;
         inputActions.WASD.Roll.performed += ctx => TryRoll();
+        inputActions.WASD.Attack1.performed += ctx => AtaqueBasico();
+        inputActions.WASD.Attack2.performed += ctx => AtaqueFuerte();
     }
 
     void OnDestroy()
@@ -115,5 +118,23 @@ public class MovmentPlayer : MonoBehaviour
         }
 
         isRolling = false;
+    }
+
+    private void AtaqueBasico()
+    {
+        if (animator)
+            animator.SetTrigger("IsAttacking1");
+
+        if (playerAttack != null) 
+            playerAttack.RealizarAtaque1();
+    }
+
+    private void AtaqueFuerte()
+    {
+        if (animator)
+            animator.SetTrigger("IsAttacking2");
+
+        if (playerAttack != null)
+            playerAttack.RealizarAtaque2();
     }
 }

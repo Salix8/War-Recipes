@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6640653021521838863}
+  - component: {fileID: 8068359365657565252}
   m_Layer: 0
   m_Name: Berenjena
   m_TagString: Untagged
@@ -32,6 +33,19 @@ Transform:
   - {fileID: 2974617389020987253}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8068359365657565252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 525385269944042891}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e451507fb6a05f94f9a26c3a3de9e32a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ingredient: {fileID: 11400000, guid: 9dbc34c6c5f40f54b996dde135b9c2d0, type: 2}
 --- !u!1001 &3372439365681076382
 PrefabInstance:
   m_ObjectHideFlags: 0

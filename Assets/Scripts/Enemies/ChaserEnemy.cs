@@ -4,6 +4,12 @@ public class ChaserEnemy : Enemy
 {
     public float moveSpeed = 2f;
 
+    public override void Start()
+    {
+        if (player == null)
+            player = GameObject.FindGameObjectWithTag("Player").transform;
+    }
+
     public override void Act()
     {
         float dist = Vector3.Distance(transform.position, player.position);
@@ -22,7 +28,7 @@ public class ChaserEnemy : Enemy
 
     protected override void Die()
     {
-        Instantiate(loot, transform.position, Quaternion.identity);
+        Instantiate(loot.ingredientInstance.gameObject, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
 }

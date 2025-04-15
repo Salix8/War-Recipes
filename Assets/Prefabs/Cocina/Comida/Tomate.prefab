@@ -9,6 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3594771535587046879}
+  - component: {fileID: 3521464421083619703}
+  - component: {fileID: 6805986041401345751}
   m_Layer: 0
   m_Name: Tomate
   m_TagString: Untagged
@@ -32,6 +34,33 @@ Transform:
   - {fileID: 4242337576121937353}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3521464421083619703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8452770308222685867}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e451507fb6a05f94f9a26c3a3de9e32a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ingredient: {fileID: 11400000, guid: 0b30be6c4eb70f7489a2fedf1dc15af0, type: 2}
+--- !u!114 &6805986041401345751
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8452770308222685867}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb1e27b2f92779840bac6feea7090b17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transformedIngredient: {fileID: 11400000, guid: b98023da0dcb2ef4780f61f038dd56f0, type: 2}
+  transformType: 0
 --- !u!1001 &4419569387006544418
 PrefabInstance:
   m_ObjectHideFlags: 0

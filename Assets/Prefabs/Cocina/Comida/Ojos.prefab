@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 219278476577794039}
+  - component: {fileID: -4782130915572835031}
   m_Layer: 0
   m_Name: Ojos
   m_TagString: Untagged
@@ -32,6 +33,19 @@ Transform:
   - {fileID: 3127611906759285049}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-4782130915572835031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4977693782887706633}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e451507fb6a05f94f9a26c3a3de9e32a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ingredient: {fileID: 11400000, guid: 05d38f68c2f3ac448b6b688755e669ee, type: 2}
 --- !u!1001 &3237308613350801106
 PrefabInstance:
   m_ObjectHideFlags: 0

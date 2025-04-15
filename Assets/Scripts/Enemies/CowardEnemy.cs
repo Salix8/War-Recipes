@@ -15,7 +15,7 @@ public class CowardEnemy : Enemy
 
     protected override void Die()
     {
-        Instantiate(loot, transform.position, Quaternion.identity);
+        Instantiate(loot.ingredientInstance.gameObject, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
 }

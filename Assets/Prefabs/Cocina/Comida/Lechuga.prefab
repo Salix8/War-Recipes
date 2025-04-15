@@ -9,6 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 112933437719748167}
+  - component: {fileID: -3819831963649368620}
+  - component: {fileID: 1723654704163080041}
+  - component: {fileID: -6267119802536019093}
   m_Layer: 0
   m_Name: Lechuga
   m_TagString: Untagged
@@ -32,6 +35,49 @@ Transform:
   - {fileID: 8155062903327961960}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-3819831963649368620
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4940011664403386664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e451507fb6a05f94f9a26c3a3de9e32a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ingredient: {fileID: 11400000, guid: c89893cd67698bb43b81cc8fa8238000, type: 2}
+--- !u!114 &1723654704163080041
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4940011664403386664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb1e27b2f92779840bac6feea7090b17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transformedIngredient: {fileID: 11400000, guid: 21f596ce817cf0c42be90f9433ad9a38, type: 2}
+  transformType: 0
+--- !u!114 &-6267119802536019093
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4940011664403386664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96fef41f5a19380499dbf25abd74a5a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ingrediente: {fileID: 0}
+  attractionDistance: 10
+  collectDistance: 1.5
+  moveSpeed: 5
 --- !u!1001 &8549560515086079107
 PrefabInstance:
   m_ObjectHideFlags: 0

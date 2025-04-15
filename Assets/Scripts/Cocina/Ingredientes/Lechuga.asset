@@ -10,6 +10,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c75f14ce9677d2a4cbcd58c55c66ae64, type: 3}
-  m_Name: Hamburguesa
+  m_Name: Lechuga
   m_EditorClassIdentifier: 
-  ingredientInstance: {fileID: 0}
+  ingredientInstance: {fileID: -3819831963649368620, guid: 0186a5f493ade92448fc37e4a1c4cab3, type: 3}

@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c75f14ce9677d2a4cbcd58c55c66ae64, type: 3}
   m_Name: CarnePicada
   m_EditorClassIdentifier: 
-  ingredientInstance: {fileID: 0}
+  ingredientInstance: {fileID: 1529283661001073435, guid: ca73c98e98224124089126925ab2fed7, type: 3}

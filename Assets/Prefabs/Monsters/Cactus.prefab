@@ -100,6 +100,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cactoro
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: a4b8611925492cc46816368bc5fdebc0, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -110,6 +114,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a4b8611925492cc46816368bc5fdebc0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8970092619737105439}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a4b8611925492cc46816368bc5fdebc0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3976160729038531797}
   m_SourcePrefab: {fileID: 100100000, guid: a4b8611925492cc46816368bc5fdebc0, type: 3}
 --- !u!4 &2380146260580159191 stripped
 Transform:
@@ -171,3 +178,21 @@ CapsuleCollider:
   m_Height: 3
   m_Direction: 1
   m_Center: {x: 0, y: 1.5, z: 0}
+--- !u!114 &3976160729038531797
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3047858074727126125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4472dda8ef04a77459a2a9cd22c651ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 10
+  detectionRange: 30
+  damage: 2
+  loot: {fileID: 11400000, guid: c89893cd67698bb43b81cc8fa8238000, type: 2}
+  player: {fileID: 0}
+  moveSpeed: 2

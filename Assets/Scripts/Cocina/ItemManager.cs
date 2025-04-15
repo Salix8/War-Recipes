@@ -7,7 +7,7 @@ public static class ItemManager
 
     [Header("Debug")]
     [Tooltip("Enable to log scene changes and stack status to the console.")]
-    public static bool enableDebugLogs = false;
+    public static bool enableDebugLogs = true;
 
     private static void Log(string message)
     {
