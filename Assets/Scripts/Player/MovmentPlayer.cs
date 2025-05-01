@@ -117,8 +117,25 @@ public class MovmentPlayer : MonoBehaviour
             yield return new WaitForFixedUpdate();
         }
 
+        StartCoroutine(RollCooldownRoutine());
         isRolling = false;
     }
+
+    IEnumerator RollCooldownRoutine()
+    {
+        float cooldown = 3f;
+        float elapsed = 0f;
+
+        while (elapsed < cooldown)
+        {
+            HUDManager.Instance.UpdateRollCooldown(1f - (elapsed / cooldown));
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        HUDManager.Instance.UpdateRollCooldown(0f); // Listo
+    }
+
 
     private void AtaqueBasico()
     {
