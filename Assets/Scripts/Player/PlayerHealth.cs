@@ -25,6 +25,5 @@ public class PlayerHealth : MonoBehaviour
     private void Die()
     {
         Debug.Log("El jugador ha muerto.");
-        // Puedes reiniciar el nivel, mostrar una pantalla, etc.
     }
 }

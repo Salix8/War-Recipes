@@ -144,6 +144,8 @@ public class MovmentPlayer : MonoBehaviour
 
         if (playerAttack != null) 
             playerAttack.RealizarAtaque1();
+
+        StartCoroutine(Attack1CooldownRoutine());
     }
 
     private void AtaqueFuerte()
@@ -153,5 +155,38 @@ public class MovmentPlayer : MonoBehaviour
 
         if (playerAttack != null)
             playerAttack.RealizarAtaque2();
+        
+        StartCoroutine(Attack2CooldownRoutine());
     }
+
+    IEnumerator Attack1CooldownRoutine()
+    {
+        float cooldownAttack1 = 1.5f; // o el tiempo que quieras
+        float elapsed = 0f;
+
+        while (elapsed < cooldownAttack1)
+        {
+            HUDManager.Instance.UpdateAttack1Cooldown(1f - (elapsed / cooldownAttack1));
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        HUDManager.Instance.UpdateAttack1Cooldown(0f);
+    }
+
+    IEnumerator Attack2CooldownRoutine()
+    {
+        float cooldownAttack2 = 3f; // o el tiempo que quieras
+        float elapsed = 0f;
+
+        while (elapsed < cooldownAttack2)
+        {
+            HUDManager.Instance.UpdateAttack2Cooldown(1f - (elapsed / cooldownAttack2));
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        HUDManager.Instance.UpdateAttack2Cooldown(0f);
+    }
+
 }

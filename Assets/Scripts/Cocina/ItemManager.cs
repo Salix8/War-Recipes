@@ -17,7 +17,7 @@ public static class ItemManager
         }
     }
 
-    public static void AñadirIngrediente(Ingredient ingrediente)
+    public static void AnyadirIngrediente(Ingredient ingrediente)
     {
         if (ingredientes.ContainsKey(ingrediente))
         {
@@ -27,7 +27,7 @@ public static class ItemManager
         else
         {
             ingredientes[ingrediente] = 1;
-            Log($"Ingrediente añadido: {ingrediente.name} (x1)");
+            Log($"Ingrediente aÃ±adido: {ingrediente.name} (x1)");
         }
     }
 

@@ -2,10 +2,10 @@ using UnityEngine;
 
 public class IngredientCollector : MonoBehaviour
 {
-    [Header("Configuración")]
+    [Header("Configuracion")]
     [SerializeField] private float attractionDistance = 10f;
     [SerializeField] private float collectDistance = 1.5f;
-    [SerializeField] private float moveSpeed = 5f;
+    [SerializeField] private float moveSpeed = 2f;
 
     private Ingredient ingrediente;
     private Transform player;
@@ -30,7 +30,7 @@ public class IngredientCollector : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("[IngredientCollector] No se encontró un Ingredient válido en este objeto.");
+            Debug.LogWarning("[IngredientCollector] No se encontro un Ingredient valido en este objeto.");
         }
     }
 
@@ -42,7 +42,7 @@ public class IngredientCollector : MonoBehaviour
 
         if (distance <= collectDistance)
         {
-            ItemManager.AñadirIngrediente(ingrediente);
+            ItemManager.AnyadirIngrediente(ingrediente);
             Destroy(gameObject);
         }
         else if (distance <= attractionDistance)
