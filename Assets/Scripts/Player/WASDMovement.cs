@@ -31,7 +31,7 @@ public class WASDMovementImproved : MonoBehaviour
         inputActions.WASD.Move.canceled += context => moveInput = Vector2.zero;
         inputActions.WASD.Roll.performed += context => Roll();
         inputActions.WASD.Attack1.performed += context => Attack1();
-        inputActions.WASD.Attack2.performed += context => Attack2();
+       // inputActions.WASD.Attack2.performed += context => Attack2();
     }
 
     void Update()
@@ -91,11 +91,6 @@ public class WASDMovementImproved : MonoBehaviour
         attackRoutine = StartCoroutine(AttackRoutine("IsAttacking1"));
     }
 
-    void Attack2()
-    {
-        if (isRolling || isAttacking) return;
-        attackRoutine = StartCoroutine(AttackRoutine("IsAttacking2"));
-    }
 
     IEnumerator AttackRoutine(string attackTrigger)
     {
