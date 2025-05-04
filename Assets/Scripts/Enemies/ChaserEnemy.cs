@@ -2,33 +2,28 @@ using UnityEngine;
 
 public class ChaserEnemy : Enemy
 {
-    public float moveSpeed = 2f;
+    public float chaseSpeed = 3.5f;
 
     public override void Start()
     {
-        if (player == null)
-            player = GameObject.FindGameObjectWithTag("Player").transform;
+        base.Start();
+    }
+
+    protected override void OnAggro()
+    {
+        agent.speed = chaseSpeed;
+        agent.isStopped = false;
     }
 
     public override void Act()
     {
-        float dist = Vector3.Distance(transform.position, player.position);
-
-        if (dist <= detectionRange)
-        {
-            isAggro = true;
-        }
-
-        if (isAggro)
-        {
-            Vector3 dir = (player.position - transform.position).normalized;
-            transform.position += dir * moveSpeed * Time.deltaTime;
-        }
+        agent.SetDestination(player.position);
     }
 
     protected override void Die()
     {
-        Instantiate(loot.ingredientInstance.gameObject, transform.position, Quaternion.identity);
+        if (loot != null && loot.ingredientInstance != null)
+            Instantiate(loot.ingredientInstance.gameObject, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
 }

@@ -1,21 +1,37 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 public class CowardEnemy : Enemy
 {
     public float fleeSpeed = 3f;
+    public float fleeDistance = 10f;
+
+    public override void Start()
+    {
+        base.Start();
+    }
+
+    protected override void OnAggro()
+    {
+        agent.speed = fleeSpeed;
+        agent.isStopped = false;
+    }
 
     public override void Act()
     {
-        if (Vector3.Distance(transform.position, player.position) <= detectionRange)
+        Vector3 dir = (transform.position - player.position).normalized;
+        Vector3 fleeTarget = transform.position + dir * fleeDistance;
+
+        if (NavMesh.SamplePosition(fleeTarget, out NavMeshHit hit, fleeDistance, NavMesh.AllAreas))
         {
-            Vector3 dir = (transform.position - player.position).normalized;
-            transform.position += dir * fleeSpeed * Time.deltaTime;
+            agent.SetDestination(hit.position);
         }
     }
 
     protected override void Die()
     {
-        Instantiate(loot.ingredientInstance.gameObject, transform.position, Quaternion.identity);
+        if (loot != null && loot.ingredientInstance != null)
+            Instantiate(loot.ingredientInstance.gameObject, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
 }
