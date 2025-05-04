@@ -1,10 +1,13 @@
 using UnityEngine;
 using UnityEngine.AI;
 
+[RequireComponent(typeof(CapsuleCollider))]
 public class CowardEnemy : Enemy
 {
     public float fleeSpeed = 3f;
     public float fleeDistance = 10f;
+    public float contactDamageCooldown = 1f;
+    private bool canDamage = true;
 
     public override void Start()
     {
@@ -27,11 +30,25 @@ public class CowardEnemy : Enemy
             agent.SetDestination(hit.position);
         }
     }
-
-    protected override void Die()
+    private void OnTriggerEnter(Collider other)
     {
-        if (loot != null && loot.ingredientInstance != null)
-            Instantiate(loot.ingredientInstance.gameObject, transform.position, Quaternion.identity);
-        Destroy(gameObject);
+        if (other.CompareTag("Player") && canDamage)
+        {
+            Debug.Log("¡El enemigo hace daño por contacto!");
+            PlayerHealth playerHealth = other.GetComponent<PlayerHealth>();
+            if (playerHealth != null)
+            {
+                playerHealth.TakeDamage(damage);
+            }
+            StartCoroutine(ContactDamageCooldown());
+        }
     }
+
+    private System.Collections.IEnumerator ContactDamageCooldown()
+    {
+        canDamage = false;
+        yield return new WaitForSeconds(contactDamageCooldown);
+        canDamage = true;
+    }
+
 }

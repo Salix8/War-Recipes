@@ -21,7 +21,7 @@ public class HUDManager : MonoBehaviour
             Destroy(gameObject);
     }
 
-    public void UpdateHealth(int current, int max)
+    public void UpdateHealth(float current, int max)
     {
         if (healthBar != null)
             healthBar.value = (float)current / max;

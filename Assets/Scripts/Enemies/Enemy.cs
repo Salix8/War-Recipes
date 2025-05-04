@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -12,6 +13,7 @@ public abstract class Enemy : MonoBehaviour
     [SerializeField] protected Transform player;
     protected bool isAggro = false;
     protected NavMeshAgent agent;
+    protected Animator animator;
 
     [Header("Patrullaje")]
     public float patrolRadius = 10f;
@@ -24,7 +26,12 @@ public abstract class Enemy : MonoBehaviour
         if (GameObject.FindGameObjectWithTag("Player") != null)
             player = GameObject.FindGameObjectWithTag("Player").transform;
 
-        agent = GetComponent<NavMeshAgent>();
+        if (agent == null)
+            agent = GetComponent<NavMeshAgent>();
+
+        if(animator == null)
+            animator = GetComponentInChildren<Animator>();
+
         PickNewPatrolPoint();
     }
 
@@ -32,10 +39,16 @@ public abstract class Enemy : MonoBehaviour
     {
         float distToPlayer = Vector3.Distance(transform.position, player.position);
 
+        if (animator != null)
+        {
+            float speed = agent.velocity.magnitude / agent.speed; // normalizamos entre 0 y 1
+            animator.SetFloat("Speed", speed);
+        }
+
         if (!isAggro && distToPlayer <= detectionRange)
         {
             isAggro = true;
-            OnAggro(); // aquí decidimos si perseguir o huir
+            OnAggro();
         }
 
         if (!isAggro)
@@ -44,7 +57,7 @@ public abstract class Enemy : MonoBehaviour
         }
         else
         {
-            Act(); // comportamiento override
+            Act();
         }
     }
 
@@ -73,9 +86,9 @@ public abstract class Enemy : MonoBehaviour
         }
     }
 
-    public abstract void Act(); // perseguir o huir
+    public abstract void Act();
 
-    protected abstract void OnAggro(); // comportamiento inicial al entrar en aggro
+    protected abstract void OnAggro();
 
     public virtual void TakeDamage(float amount)
     {
@@ -86,7 +99,27 @@ public abstract class Enemy : MonoBehaviour
         }
     }
 
-    protected abstract void Die(); // soltar loot
+    protected virtual void Die() // soltar loot
+    {
+
+        if (loot != null && loot.ingredientInstance != null)
+            Instantiate(loot.ingredientInstance.gameObject, transform.position, Quaternion.identity);
+
+        if (animator != null)
+            animator.SetTrigger("Die");
+
+        StartCoroutine(DestroyAfterAnimation());
+    }
+
+    private IEnumerator DestroyAfterAnimation()
+    {
+        float animLength = 1f; // Valor por defecto
+        if (animator != null)
+            animLength = animator.GetCurrentAnimatorStateInfo(0).length;
+
+        yield return new WaitForSeconds(animLength);
+        Destroy(transform.parent.gameObject);
+    }
 
     protected virtual void OnDrawGizmosSelected()
     {
