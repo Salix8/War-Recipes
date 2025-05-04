@@ -20,6 +20,10 @@ public class WASDMovementImproved : MonoBehaviour
     private bool isAttacking = false;
     private Coroutine attackRoutine;
 
+    [Header("Attack Settings")]
+public float attackPauseDuration = 0.9f;
+
+
     void Awake()
     {
         characterController = GetComponent<CharacterController>();
@@ -27,11 +31,41 @@ public class WASDMovementImproved : MonoBehaviour
         inputActions.PointClick.Disable();
         inputActions.WASD.Enable();
 
-        inputActions.WASD.Move.performed += context => moveInput = context.ReadValue<Vector2>();
-        inputActions.WASD.Move.canceled += context => moveInput = Vector2.zero;
-        inputActions.WASD.Roll.performed += context => Roll();
-        inputActions.WASD.Attack1.performed += context => Attack1();
-       // inputActions.WASD.Attack2.performed += context => Attack2();
+        inputActions.WASD.Move.performed += OnMovePerformed;
+        inputActions.WASD.Move.canceled += OnMoveCanceled;
+        inputActions.WASD.Roll.performed += OnRollPerformed;
+        inputActions.WASD.Attack1.performed += OnAttack1Performed;
+    }
+
+    private void OnDestroy()
+    {
+        if (inputActions != null)
+        {
+            inputActions.WASD.Move.performed -= OnMovePerformed;
+            inputActions.WASD.Move.canceled -= OnMoveCanceled;
+            inputActions.WASD.Roll.performed -= OnRollPerformed;
+            inputActions.WASD.Attack1.performed -= OnAttack1Performed;
+        }
+    }
+
+    private void OnMovePerformed(InputAction.CallbackContext context)
+    {
+        moveInput = context.ReadValue<Vector2>();
+    }
+
+    private void OnMoveCanceled(InputAction.CallbackContext context)
+    {
+        moveInput = Vector2.zero;
+    }
+
+    private void OnRollPerformed(InputAction.CallbackContext context)
+    {
+        Roll();
+    }
+
+    private void OnAttack1Performed(InputAction.CallbackContext context)
+    {
+        Attack1();
     }
 
     void Update()
@@ -53,13 +87,19 @@ public class WASDMovementImproved : MonoBehaviour
             Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
 
-            animator.SetBool("IsMoving", true);
-            animator.SetFloat("Speed", currentSpeed);
+            if (animator != null)
+            {
+                animator.SetBool("IsMoving", true);
+                animator.SetFloat("Speed", currentSpeed);
+            }
         }
         else
         {
-            animator.SetBool("IsMoving", false);
-            animator.SetFloat("Speed", 0f);
+            if (animator != null)
+            {
+                animator.SetBool("IsMoving", false);
+                animator.SetFloat("Speed", 0f);
+            }
         }
     }
 
@@ -67,23 +107,42 @@ public class WASDMovementImproved : MonoBehaviour
     {
         if (isRolling) return;
         isRolling = true;
-        animator.SetTrigger("IsRolling");
+
+        if (animator != null && AnimatorHasParameter("IsRolling"))
+        {
+            animator.SetBool("IsRolling", true);
+        }
+        else
+        {
+            Debug.LogWarning("Parámetro 'IsRolling' no encontrado en el Animator.");
+        }
+
         StartCoroutine(RollCoroutine());
     }
 
-    IEnumerator RollCoroutine()
-    {
-        float elapsedTime = 0f;
-        Vector3 rollDirection = transform.forward;
+IEnumerator RollCoroutine()
+{
+    float elapsedTime = 0f;
+    Vector3 rollDirection = transform.forward;
 
-        while (elapsedTime < rollDuration)
-        {
-            characterController.Move(rollDirection * moveSpeed * rollSpeedMultiplier * Time.deltaTime);
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
-        isRolling = false;
+    // Esperar 1 frame para asegurar que la animación arranque visualmente
+    yield return null;
+
+    while (elapsedTime < rollDuration)
+    {
+        characterController.Move(rollDirection * moveSpeed * rollSpeedMultiplier * Time.deltaTime);
+        elapsedTime += Time.deltaTime;
+        yield return null;
     }
+
+    if (animator != null && AnimatorHasParameter("IsRolling"))
+    {
+        animator.SetBool("IsRolling", false);
+    }
+
+    isRolling = false;
+}
+
 
     void Attack1()
     {
@@ -91,26 +150,37 @@ public class WASDMovementImproved : MonoBehaviour
         attackRoutine = StartCoroutine(AttackRoutine("IsAttacking1"));
     }
 
+IEnumerator AttackRoutine(string attackTrigger)
+{
+    isAttacking = true;
 
-    IEnumerator AttackRoutine(string attackTrigger)
+    if (animator != null && AnimatorHasParameter(attackTrigger))
     {
-        isAttacking = true;
         animator.SetTrigger(attackTrigger);
+    }
 
-        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length * 0.9f);
+    yield return new WaitForSeconds(attackPauseDuration); // configurable
 
-        isAttacking = false;
+    isAttacking = false;
 
-        bool isMoving = moveInput.magnitude > 0.1f;
-        if (isMoving)
+    bool isMoving = moveInput.magnitude > 0.1f;
+    if (animator != null)
+    {
+        animator.SetBool("IsMoving", isMoving);
+        animator.SetFloat("Speed", isMoving ? moveSpeed : 0f);
+    }
+}
+
+
+    bool AnimatorHasParameter(string paramName)
+    {
+        if (animator == null) return false;
+
+        foreach (AnimatorControllerParameter param in animator.parameters)
         {
-            animator.SetBool("IsMoving", true);
-            animator.SetFloat("Speed", moveSpeed);
+            if (param.name == paramName)
+                return true;
         }
-        else
-        {
-            animator.SetBool("IsMoving", false);
-            animator.SetFloat("Speed", 0f);
-        }
+        return false;
     }
 }

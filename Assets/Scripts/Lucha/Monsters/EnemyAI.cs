@@ -28,7 +28,7 @@ public class EnemyAI : MonoBehaviour
     private void Start()
     {
         currentHealth = maxHealth;
-        player = GameObject.FindGameObjectWithTag("Player").transform;
+        player = GameObject.FindGameObjectWithTag("Player")?.transform;
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
         spawnPosition = transform.position;
@@ -40,7 +40,7 @@ public class EnemyAI : MonoBehaviour
 
         float distanceToPlayer = Vector3.Distance(transform.position, player.position);
 
-        if (isAttacking) return; // Detener toda acción durante el ataque
+        if (isAttacking) return;
 
         if (distanceToPlayer <= detectionRadius)
         {
@@ -54,10 +54,8 @@ public class EnemyAI : MonoBehaviour
             }
             else
             {
-                // Dentro del rango de ataque
                 agent.isStopped = true;
                 animator.SetBool("IsWalking", false);
-
                 AttackPlayer();
             }
         }
@@ -83,13 +81,19 @@ public class EnemyAI : MonoBehaviour
         isAttacking = true;
         animator.SetTrigger("Attack");
 
-        // Girar hacia el jugador
+        // Rotar hacia el jugador
         Vector3 direction = (player.position - transform.position).normalized;
         direction.y = 0;
         transform.rotation = Quaternion.LookRotation(direction);
 
-        // Finalizar ataque después de la duración (ajusta según tu animación)
-        Invoke(nameof(EndAttack), 1.0f);
+        // Aplicar daño al jugador
+        PlayerHealth playerHealth = player.GetComponent<PlayerHealth>();
+        if (playerHealth != null)
+        {
+            playerHealth.TakeDamage(damage);
+        }
+
+        Invoke(nameof(EndAttack), 1.0f); // ajusta al tiempo real de la animación
     }
 
     private void EndAttack()

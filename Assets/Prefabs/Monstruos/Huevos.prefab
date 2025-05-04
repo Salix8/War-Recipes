@@ -88,6 +88,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 14
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 8c9002460c188624daada2d84d168bb0, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 3146317879289294598, guid: 8c9002460c188624daada2d84d168bb0, type: 3}
       propertyPath: m_Layer
       value: 14
@@ -142,7 +146,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   returnRadius: 5
-  attackCooldown: 1
 --- !u!195 &-2502775170720587703
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -178,7 +181,7 @@ CapsuleCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 32768
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0

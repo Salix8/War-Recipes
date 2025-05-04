@@ -1,5 +1,124 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2076377778440304838
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 994180102652666876}
+  m_Layer: 13
+  m_Name: EmoteRoot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &994180102652666876
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2076377778440304838}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 5.01, z: 0}
+  m_LocalScale: {x: 7, y: 7, z: 7}
+  m_ConstrainProportionsScale: 1
+  m_Children:
+  - {fileID: 5133295143285171751}
+  m_Father: {fileID: 6764252421885744260}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8054103310682673322
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5133295143285171751}
+  - component: {fileID: 479401441359081964}
+  m_Layer: 13
+  m_Name: EmoteSprite
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5133295143285171751
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8054103310682673322}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 994180102652666876}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!212 &479401441359081964
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8054103310682673322}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: ea799eb5d48c9c1489718ef9a90cd56c, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1, y: 1}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
 --- !u!1001 &6509331763610661743
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -226,11 +345,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 589a8ab013ba9ae4aad8d8b443147454, type: 3}
+      insertIndex: 0
+      addedObject: {fileID: 994180102652666876}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 589a8ab013ba9ae4aad8d8b443147454, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3969178720095481299}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 589a8ab013ba9ae4aad8d8b443147454, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8340943746111561958}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 589a8ab013ba9ae4aad8d8b443147454, type: 3}
       insertIndex: -1
       addedObject: {fileID: -440904943475608651}
@@ -258,6 +383,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9655ba4bfeb63814eba96187e1f41c0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &8340943746111561958
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6238790679961734718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c1fdc1b8ae48b54f963e19179240b19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  emoteRoot: {fileID: 2076377778440304838}
+  emoteRenderer: {fileID: 479401441359081964}
+  emoteDefault: {fileID: 21300000, guid: ea799eb5d48c9c1489718ef9a90cd56c, type: 3}
+  emoteBien: {fileID: 21300000, guid: fac292ad0e100f448875da592723dfbb, type: 3}
+  emoteFeliz: {fileID: 21300000, guid: bebe5bd4472c25744a3a6096316f7b01, type: 3}
+  emoteEncantado: {fileID: 21300000, guid: 018ebec5abd0cb2489a2ba7d9673af9a, type: 3}
+  emoteEnfadado1: {fileID: 21300000, guid: 60d0eb3b105f5a8459326fe26efe62b3, type: 3}
+  emoteEnfadado2: {fileID: 21300000, guid: d5315db884a95e34a80beb94d54d2201, type: 3}
+  emoteEnfadado3: {fileID: 21300000, guid: 71c9cb5421d5f2640b34671c99aa2a72, type: 3}
+  timeToEnfadado1: 10
+  timeToEnfadado2: 20
+  timeToEnfadado3: 30
 --- !u!195 &-440904943475608651
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -323,3 +472,8 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!4 &6764252421885744260 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 589a8ab013ba9ae4aad8d8b443147454, type: 3}
+  m_PrefabInstance: {fileID: 6509331763610661743}
+  m_PrefabAsset: {fileID: 0}

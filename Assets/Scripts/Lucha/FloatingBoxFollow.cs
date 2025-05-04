@@ -58,6 +58,28 @@ public class SmoothFollowBox : MonoBehaviour
             }
         }
 
+        // Evitar interponerse entre jugador y enemigos
+        Collider[] enemies = Physics.OverlapSphere(target.position, 10f, enemyLayer);
+        foreach (Collider enemy in enemies)
+        {
+            Vector3 dirToEnemy = (enemy.transform.position - target.position).normalized;
+            Vector3 dirToBox = (transform.position - target.position).normalized;
+
+            // Comprobamos si la box está más cerca que el enemigo en la misma dirección
+            float dot = Vector3.Dot(dirToEnemy, dirToBox);
+            float distToBox = Vector3.Distance(target.position, transform.position);
+            float distToEnemy = Vector3.Distance(target.position, enemy.transform.position);
+
+            if (dot > 0.9f && distToBox < distToEnemy) // está en la línea y más cerca
+            {
+                // Reposicionar la box a un lado
+                Vector3 right = Vector3.Cross(Vector3.up, dirToEnemy).normalized;
+                desiredPosition = target.position + right * followDistance + initialOffset;
+                break;
+            }
+        }
+
+
         agent.SetDestination(desiredPosition);
 
         Vector3 lookDirection = (target.position - transform.position).normalized;

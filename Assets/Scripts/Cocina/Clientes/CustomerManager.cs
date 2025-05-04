@@ -11,7 +11,7 @@ public class CustomerManager : MonoBehaviour
     public int maxQueueSize = 4;
     public float queueSpacing = 1.5f;
     public float spawnInterval = 5f;
-public CustomerButton customerButton;
+    public CustomerButton customerButton;
 
     private List<GameObject> customers = new List<GameObject>();
     private Queue<GameObject> waitingQueue = new Queue<GameObject>();
@@ -41,56 +41,70 @@ public CustomerButton customerButton;
         }
     }
 
-private void SpawnCustomer()
-{
-    Vector3 spawnPos = entryPoint.position;
-    if (NavMesh.SamplePosition(spawnPos, out NavMeshHit hit, 2.0f, NavMesh.AllAreas))
+    private void SpawnCustomer()
     {
-        GameObject newCustomer = Instantiate(customerPrefab, hit.position, Quaternion.identity);
-        customers.Add(newCustomer);
-        waitingQueue.Enqueue(newCustomer);  // Asegúrate de que los clientes estén en la cola
-        Debug.Log("Cliente agregado a la cola: " + newCustomer.name); // Esto confirmará si se agrega a la cola
-        UpdateQueuePositions();
-    }
-    else
-    {
-        Debug.LogError("Error al colocar al cliente en el NavMesh.");
-    }
-}
-
-
-
-
-private void UpdateQueuePositions()
-{
-    int index = 0;
-    foreach (GameObject customer in waitingQueue)
-    {
-        // Calculamos la posición en la fila utilizando un espaciado
-        Vector3 queuePosition = queueStartPoint.position + Vector3.forward * (index * queueSpacing);
-
-        // Asegurarnos de que el cliente se mueva hacia la posición calculada
-        NavMeshAgent agent = customer.GetComponent<NavMeshAgent>();
-        if (agent != null)
+        Vector3 spawnPos = entryPoint.position;
+        if (NavMesh.SamplePosition(spawnPos, out NavMeshHit hit, 2.0f, NavMesh.AllAreas))
         {
-            // Establecemos la posición que queremos que el cliente ocupe en la fila
-            agent.SetDestination(queuePosition);
+            GameObject newCustomer = Instantiate(customerPrefab, hit.position, Quaternion.identity);
+            customers.Add(newCustomer);
+            waitingQueue.Enqueue(newCustomer);
+            Debug.Log("Cliente agregado a la cola: " + newCustomer.name);
+
+            // Mostrar emote default y comenzar espera
+            CustomerEmoteController emotes = newCustomer.GetComponent<CustomerEmoteController>();
+            if (emotes != null)
+            {
+                emotes.ShowDefaultEmote();
+                emotes.StartWaiting();
+            }
+
+            UpdateQueuePositions();
         }
-        index++;
+        else
+        {
+            Debug.LogError("Error al colocar al cliente en el NavMesh.");
+        }
     }
-}
+
+    private void UpdateQueuePositions()
+    {
+        int index = 0;
+        foreach (GameObject customer in waitingQueue)
+        {
+            Vector3 queuePosition = queueStartPoint.position + Vector3.forward * (index * queueSpacing);
+            NavMeshAgent agent = customer.GetComponent<NavMeshAgent>();
+            if (agent != null)
+            {
+                agent.SetDestination(queuePosition);
+            }
+            index++;
+        }
+    }
 
 public void AssignCustomersToTables()
 {
     if (waitingQueue.Count > 0)
     {
+        GameObject customer = waitingQueue.Dequeue();
+        Customer customerScript = customer.GetComponent<Customer>();
+        CustomerEmoteController emotes = customer.GetComponent<CustomerEmoteController>();
         Transform chair = tableManager.GetAvailableChair();
+
         if (chair != null)
         {
-            GameObject customer = waitingQueue.Dequeue();
-            Customer customerScript = customer.GetComponent<Customer>();
-            customerScript.MoveToSeat(chair);
+            if (emotes != null)
+            {
+                emotes.StopWaiting(); // Detiene el contador de espera
 
+                // Espera a que se siente para mostrar el emote "Bien"
+                customerScript.OnSeated += () =>
+                {
+                    emotes.ShowBienEmote();
+                };
+            }
+
+            customerScript.MoveToSeat(chair);
             UpdateQueuePositions();
         }
         else
@@ -104,10 +118,9 @@ public void AssignCustomersToTables()
     }
 }
 
-public int GetWaitingQueueCount()
-{
-    return waitingQueue.Count;
-}
 
-
+    public int GetWaitingQueueCount()
+    {
+        return waitingQueue.Count;
+    }
 }

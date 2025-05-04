@@ -9,19 +9,23 @@ public class Customer : MonoBehaviour
     private bool isSeated = false;
     private Transform assignedTableObject;
     private Transform chairTransform;
-    private Vector3 seatOffset = new Vector3(-0.15f, 0.05f, 0f); // 📌 Ajuste para sentarse un poco más a la izquierda
-    private Rigidbody rb; // 📌 Para desactivar colisiones al sentarse
+    private Vector3 seatOffset = new Vector3(-0.15f, 0.05f, 0f);
+    private Rigidbody rb;
+    private Coroutine torsoLookCoroutine;
+
+    public System.Action OnSeated; // Evento que se dispara cuando el cliente se sienta
+
 
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
-        rb = GetComponent<Rigidbody>(); // Obtener Rigidbody si existe
+        rb = GetComponent<Rigidbody>();
     }
 
     void Update()
     {
-        if (!isSeated)
+        if (!isSeated && animator != null && agent != null)
         {
             animator.SetBool("IsWalking", agent.velocity.magnitude > 0.1f);
         }
@@ -35,58 +39,70 @@ public class Customer : MonoBehaviour
         TableManager tableManager = FindObjectOfType<TableManager>();
         assignedTableObject = tableManager?.GetTableForChair(chair);
 
-        // 📌 Posición previa para ubicarse antes de sentarse
         Vector3 preSitPosition = chair.position - (chair.forward * 0.6f);
         preSitPosition.y = chair.position.y;
 
-        agent.SetDestination(preSitPosition);
-        StartCoroutine(PrepareForSitting());
+        if (agent != null)
+        {
+            agent.SetDestination(preSitPosition);
+            StartCoroutine(PrepareForSitting());
+        }
     }
 
     private IEnumerator PrepareForSitting()
     {
-        // 📌 Esperar a que llegue a la posición previa a la silla
-        while (agent.pathPending || agent.remainingDistance > 0.2f)
+        while (agent != null && (agent.pathPending || agent.remainingDistance > 0.2f))
         {
             yield return null;
         }
 
-        // 📌 Apagar el NavMeshAgent y desactivar colisiones para evitar problemas al sentarse
-        agent.enabled = false;
-        if (rb != null) rb.isKinematic = true; // Desactivar colisiones físicas
+        if (agent != null) agent.enabled = false;
+        if (rb != null) rb.isKinematic = true;
 
-        // 📌 Girar de espaldas a la silla
-        Quaternion targetRotation = Quaternion.LookRotation(-chairTransform.forward);
-        yield return SmoothLookAt(targetRotation, 0.3f);
+        if (chairTransform != null)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(-chairTransform.forward);
+            yield return SmoothLookAt(targetRotation, 0.3f);
+        }
 
-        // 📌 Activar animación de sentarse
-        animator.SetTrigger("SitDown");
+        if (animator != null)
+        {
+            animator.SetTrigger("SitDown");
+        }
 
-        // 📌 Esperar la duración de la animación antes de teletransportarlo
         yield return new WaitForSeconds(1.2f);
 
-        // 📌 Posicionarlo correctamente en la silla con desplazamiento a la izquierda
-        transform.position = chairTransform.position + seatOffset;
-        transform.rotation = chairTransform.rotation;
+        if (chairTransform != null)
+        {
+            transform.position = chairTransform.position + seatOffset;
+            transform.rotation = chairTransform.rotation;
+        }
 
-        // 📌 Marcar como sentado
         isSeated = true;
-        animator.SetBool("IsSitting", true);
 
-        // 📌 Girar la parte superior del cuerpo hacia el objeto en la mesa si existe
+        if (animator != null)
+        {
+            animator.SetBool("IsSitting", true);
+        }
+
         if (assignedTableObject != null)
         {
-            StartCoroutine(TorsoLookAt(assignedTableObject.position));
+            torsoLookCoroutine = StartCoroutine(TorsoLookAt(assignedTableObject.position));
         }
+
+        OnSeated?.Invoke(); // Dispara el evento una vez sentado
+
     }
 
     private IEnumerator SmoothLookAt(Quaternion targetRotation, float duration)
     {
-        float elapsedTime = 0;
         Quaternion startRotation = transform.rotation;
+        float elapsedTime = 0;
 
         while (elapsedTime < duration)
         {
+            if (this == null) yield break;
+
             transform.rotation = Quaternion.Slerp(startRotation, targetRotation, elapsedTime / duration);
             elapsedTime += Time.deltaTime;
             yield return null;
@@ -97,19 +113,25 @@ public class Customer : MonoBehaviour
 
     private IEnumerator TorsoLookAt(Vector3 targetPosition)
     {
-        // 📌 Solo giramos la parte superior del cuerpo
-        float elapsedTime = 0;
         float duration = 0.5f;
+        float elapsedTime = 0;
         Quaternion startRotation = transform.rotation;
         Quaternion targetRotation = Quaternion.LookRotation(targetPosition - transform.position);
 
         while (elapsedTime < duration)
         {
+            if (this == null) yield break;
+
             transform.rotation = Quaternion.Slerp(startRotation, targetRotation, elapsedTime / duration);
             elapsedTime += Time.deltaTime;
             yield return null;
         }
 
         transform.rotation = targetRotation;
+    }
+
+    private void OnDestroy()
+    {
+        StopAllCoroutines();
     }
 }

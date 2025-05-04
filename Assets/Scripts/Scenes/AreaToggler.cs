@@ -2,22 +2,55 @@ using UnityEngine;
 
 public class AreaToggler : MonoBehaviour
 {
-    [SerializeField] private GameObject[] toggleObjects; // Prefab del área a alternar
-    public void ToggleArea(bool value)
+    [Header("Área A (por ejemplo, Cocina)")]
+    [SerializeField] private GameObject[] areaAObjects;
+
+    [Header("Área B (por ejemplo, Océano)")]
+    [SerializeField] private GameObject oceanAreaPrefab;
+    private GameObject currentOceanInstance;
+
+    private bool isAreaAActive = true; // Estado inicial
+
+    public void ToggleAreas()
     {
-        foreach (GameObject obj in toggleObjects)
+        isAreaAActive = !isAreaAActive;
+
+        SetActiveObjects(areaAObjects, isAreaAActive);
+
+        if (!isAreaAActive)
         {
-            obj.SetActive(value);
+            // Cambiar a océano: reiniciar océano
+            ResetOceanArea();
+        }
+        else
+        {
+            // Volver a cocina: ocultar océano
+            if (currentOceanInstance != null)
+                currentOceanInstance.SetActive(false);
         }
     }
-    [ContextMenu("Disable Area")]
-    void DisableArea()
+
+    private void SetActiveObjects(GameObject[] objects, bool value)
     {
-        ToggleArea(false);
+        foreach (GameObject obj in objects)
+        {
+            if (obj != null)
+                obj.SetActive(value);
+        }
     }
-    [ContextMenu("Enable Area")]
-    void EnableArea()
+
+    private void ResetOceanArea()
     {
-        ToggleArea(true);
+        if (currentOceanInstance != null)
+            Destroy(currentOceanInstance);
+
+        currentOceanInstance = Instantiate(oceanAreaPrefab);
+        currentOceanInstance.SetActive(true);
+    }
+
+    // Opcional: iniciar en Cocina por defecto
+    private void Start()
+    {
+        SetActiveObjects(areaAObjects, isAreaAActive);
     }
 }
