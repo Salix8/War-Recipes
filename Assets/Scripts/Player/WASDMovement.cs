@@ -183,4 +183,13 @@ IEnumerator AttackRoutine(string attackTrigger)
         }
         return false;
     }
+
+    private void OnDisable()
+{
+    if (inputActions != null)
+    {
+        inputActions.WASD.Disable();
+    }
+}
+
 }

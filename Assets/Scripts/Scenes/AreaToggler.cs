@@ -9,7 +9,7 @@ public class AreaToggler : MonoBehaviour
     [SerializeField] private GameObject oceanAreaPrefab;
     private GameObject currentOceanInstance;
 
-    private bool isAreaAActive = true; // Estado inicial
+    private bool isAreaAActive = true;
 
     public void ToggleAreas()
     {
@@ -19,12 +19,10 @@ public class AreaToggler : MonoBehaviour
 
         if (!isAreaAActive)
         {
-            // Cambiar a océano: reiniciar océano
             ResetOceanArea();
         }
         else
         {
-            // Volver a cocina: ocultar océano
             if (currentOceanInstance != null)
                 currentOceanInstance.SetActive(false);
         }
@@ -39,16 +37,23 @@ public class AreaToggler : MonoBehaviour
         }
     }
 
-    private void ResetOceanArea()
+private void ResetOceanArea()
+{
+    if (currentOceanInstance != null)
+        Destroy(currentOceanInstance);
+
+    currentOceanInstance = Instantiate(oceanAreaPrefab);
+    currentOceanInstance.SetActive(true);
+
+    // Buscar todos los spawners dentro del nuevo océano y generar enemigos
+    EnemySpawner[] spawners = currentOceanInstance.GetComponentsInChildren<EnemySpawner>();
+    foreach (var spawner in spawners)
     {
-        if (currentOceanInstance != null)
-            Destroy(currentOceanInstance);
-
-        currentOceanInstance = Instantiate(oceanAreaPrefab);
-        currentOceanInstance.SetActive(true);
+        spawner.SpawnEnemies(spawner.initialSpawnCount);
     }
+}
 
-    // Opcional: iniciar en Cocina por defecto
+
     private void Start()
     {
         SetActiveObjects(areaAObjects, isAreaAActive);

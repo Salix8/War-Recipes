@@ -1,31 +1,54 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
     [Header("Enemy Configuration")]
-    public GameObject enemyPrefab;           // Prefab del enemigo a spawnear
-    public int initialSpawnCount = 2;        // Cuántos enemigos aparecen al inicio
+    public GameObject enemyPrefab;
+    public int initialSpawnCount = 2;
 
     [Header("Spawn Area")]
-    public float spawnRadius = 5f;           // Radio dentro del cual aparecen
+    public float spawnRadius = 5f;
 
-    private void Start()
-    {
-        for (int i = 0; i < initialSpawnCount; i++)
-        {
-            SpawnEnemy();
-        }
-    }
+    private List<GameObject> spawnedEnemies = new List<GameObject>();
 
-    public void SpawnEnemy()
+    // Elimina esto si quieres controlar el spawn manualmente desde afuera
+    // private void Start()
+    // {
+    //     SpawnEnemies(initialSpawnCount);
+    // }
+
+public void SpawnEnemies(int count)
+{
+    // OPCIONAL: Elimina enemigos antiguos por seguridad
+foreach (Transform child in transform.root)
+{
+    if (child.CompareTag("Enemy")) // Asegúrate de que los enemigos tengan este tag
+        Destroy(child.gameObject);
+}
+
+
+    for (int i = 0; i < count; i++)
     {
         Vector3 randomOffset = Random.insideUnitSphere * spawnRadius;
-        randomOffset.y = 0f; // Mantener en el plano horizontal
+        randomOffset.y = 0f;
 
         Vector3 spawnPosition = transform.position + randomOffset;
-        GameObject enemy = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
 
-        // Se podría enlazar con un sistema de gestión más adelante
+        // Instanciar como hijo del área actual
+        GameObject enemy = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity, transform.root);
+    }
+}
+
+
+    public void ClearEnemies()
+    {
+        foreach (GameObject enemy in spawnedEnemies)
+        {
+            if (enemy != null)
+                Destroy(enemy);
+        }
+        spawnedEnemies.Clear();
     }
 
 #if UNITY_EDITOR

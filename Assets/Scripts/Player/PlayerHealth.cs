@@ -3,18 +3,19 @@ using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
-    [Header("Health Settings")]
-    public float maxHealth = 100f;
-    public float currentHealth;
-    public float regenPerSecond = 5f;
+    [Header("Stats Reference")]
+    public PlayerStats playerStats; // ← ScriptableObject compartido
 
     [Header("UI References")]
-    public Image healthFillImage; // Asigna aquí el Image con FillAmount
-    public Animator damageAnimator; // Asigna aquí el Animator (opcional)
+    public Image healthFillImage;
+    public Animator damageAnimator;
 
     private void Start()
     {
-        currentHealth = maxHealth;
+        // Asegúrate de que la salud esté bien inicializada (solo si quieres reiniciar)
+        if (playerStats.currentHealth <= 0f)
+            playerStats.currentHealth = playerStats.maxHealth;
+
         UpdateHealthUI();
     }
 
@@ -25,23 +26,24 @@ public class PlayerHealth : MonoBehaviour
 
     void RegenerateHealth()
     {
-        if (currentHealth < maxHealth)
+        if (playerStats.currentHealth < playerStats.maxHealth)
         {
-            currentHealth += regenPerSecond * Time.deltaTime;
-            currentHealth = Mathf.Min(currentHealth, maxHealth);
+            playerStats.currentHealth += playerStats.regenPerSecond * Time.deltaTime;
+            playerStats.currentHealth = Mathf.Min(playerStats.currentHealth, playerStats.maxHealth);
             UpdateHealthUI();
         }
     }
 
     public void TakeDamage(float damage)
     {
-        currentHealth -= damage;
-        currentHealth = Mathf.Max(0f, currentHealth);
+        playerStats.currentHealth -= damage;
+        playerStats.currentHealth = Mathf.Max(0f, playerStats.currentHealth);
         UpdateHealthUI();
 
         if (damageAnimator != null)
         {
-            damageAnimator.SetTrigger("DamageFlash"); // Este trigger debe existir en el Animator
+            damageAnimator.ResetTrigger("DamageFlash"); // ← Permite repetir animación
+            damageAnimator.SetTrigger("DamageFlash");
         }
     }
 
@@ -49,7 +51,7 @@ public class PlayerHealth : MonoBehaviour
     {
         if (healthFillImage != null)
         {
-            healthFillImage.fillAmount = currentHealth / maxHealth;
+            healthFillImage.fillAmount = playerStats.currentHealth / playerStats.maxHealth;
         }
     }
 }
