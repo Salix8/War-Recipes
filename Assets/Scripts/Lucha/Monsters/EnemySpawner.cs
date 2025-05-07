@@ -20,13 +20,12 @@ public class EnemySpawner : MonoBehaviour
 
 public void SpawnEnemies(int count)
 {
-    // OPCIONAL: Elimina enemigos antiguos por seguridad
-foreach (Transform child in transform.root)
-{
-    if (child.CompareTag("Enemy")) // Asegúrate de que los enemigos tengan este tag
-        Destroy(child.gameObject);
-}
-
+    // Elimina solo hijos de este spawner
+    foreach (Transform child in transform)
+    {
+        if (child.CompareTag("Enemy"))
+            Destroy(child.gameObject);
+    }
 
     for (int i = 0; i < count; i++)
     {
@@ -35,10 +34,12 @@ foreach (Transform child in transform.root)
 
         Vector3 spawnPosition = transform.position + randomOffset;
 
-        // Instanciar como hijo del área actual
-        GameObject enemy = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity, transform.root);
+        // Instanciar como hijo de este spawner
+        GameObject enemy = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity, transform);
+        enemy.tag = "Enemy"; // Por seguridad si no lo tiene el prefab
     }
 }
+
 
 
     public void ClearEnemies()

@@ -1,64 +1,81 @@
-using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.AI;
 using System.Collections.Generic;
+using UnityEngine;
 
 public class CharacterManagerCocina : MonoBehaviour
 {
     public static CharacterManagerCocina Instance;
-    public Animator animator;
-    private PointClickMovement pointClickMovement;
-    private List<string> ingredients = new List<string>();
 
-    private Vector3 stationPosition;
+    private Dictionary<string, int> ingredients = new Dictionary<string, int>();
 
-    void Awake()
+    private void Awake()
     {
         if (Instance == null)
-        {
             Instance = this;
-        }
         else
-        {
             Destroy(gameObject);
-            return;
-        }
-
-        animator = GetComponent<Animator>();
-        pointClickMovement = GetComponent<PointClickMovement>();
     }
 
-    public void AddIngredient(string ingredient)
+    public bool HasIngredients(List<string> recipeIngredients)
     {
-        ingredients.Add(ingredient);
-        Debug.Log("Ingrediente recogido: " + ingredient);
-    }
+        Dictionary<string, int> required = new Dictionary<string, int>();
 
-    public bool HasIngredients(List<string> requiredIngredients)
-    {
-        foreach (string ingredient in requiredIngredients)
+        // Contar cuántos de cada ingrediente se necesitan
+        foreach (string ingredient in recipeIngredients)
         {
-            if (!ingredients.Contains(ingredient)) return false;
+            if (required.ContainsKey(ingredient))
+                required[ingredient]++;
+            else
+                required[ingredient] = 1;
         }
+
+        // Verificar si los tenemos todos
+        foreach (var kvp in required)
+        {
+            if (!ingredients.ContainsKey(kvp.Key) || ingredients[kvp.Key] < kvp.Value)
+                return false;
+        }
+
         return true;
     }
 
-    public void StartCooking(Vector3 position)
+    public void UseIngredients(List<string> recipeIngredients)
     {
-        pointClickMovement.navMeshAgent.SetDestination(position);
-        animator.SetTrigger("IsCooking");
+        Dictionary<string, int> toUse = new Dictionary<string, int>();
+
+        foreach (string ingredient in recipeIngredients)
+        {
+            if (toUse.ContainsKey(ingredient))
+                toUse[ingredient]++;
+            else
+                toUse[ingredient] = 1;
+        }
+
+        foreach (var kvp in toUse)
+        {
+            if (ingredients.ContainsKey(kvp.Key))
+            {
+                ingredients[kvp.Key] -= kvp.Value;
+                if (ingredients[kvp.Key] <= 0)
+                    ingredients.Remove(kvp.Key);
+
+                CookingCrateManager.Instance?.UpdateCrates(kvp.Key, ingredients.ContainsKey(kvp.Key) ? ingredients[kvp.Key] : 0);
+            }
+        }
     }
 
-    public void MoveToStation(Transform station)
+    public void AddIngredient(string ingredientName, int amount)
     {
-        if (station != null)
-        {
-            pointClickMovement.navMeshAgent.SetDestination(station.position);
-            animator.SetTrigger("IsCooking");
-        }
+        if (ingredients.ContainsKey(ingredientName))
+            ingredients[ingredientName] += amount;
         else
-        {
-            Debug.LogError("Station transform is not assigned.");
-        }
+            ingredients[ingredientName] = amount;
+
+        CookingCrateManager.Instance?.UpdateCrates(ingredientName, ingredients[ingredientName]);
+    }
+
+    public void MoveToStation(Transform stationTransform)
+    {
+        // Lógica para mover al personaje si quieres
+        Debug.Log("Moviendo personaje a estación: " + stationTransform.name);
     }
 }

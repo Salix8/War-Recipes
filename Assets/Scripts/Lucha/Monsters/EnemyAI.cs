@@ -132,6 +132,7 @@ public class EnemyAI : MonoBehaviour
         agent.enabled = false;
         animator.SetTrigger("Die");
         Destroy(gameObject, 3f);
+        GetComponent<EnemyDrops>().DropItems();
     }
 
 #if UNITY_EDITOR

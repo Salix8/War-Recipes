@@ -329,6 +329,9 @@ PrefabInstance:
       addedObject: {fileID: -8987385484089189405}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: cd6181e3ca651114b9ea48d4dbac9190, type: 3}
       insertIndex: -1
+      addedObject: {fileID: -4888698658475643064}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: cd6181e3ca651114b9ea48d4dbac9190, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 5098099927644187195}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: cd6181e3ca651114b9ea48d4dbac9190, type: 3}
       insertIndex: -1
@@ -362,6 +365,21 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   returnRadius: 5
+--- !u!114 &-4888698658475643064
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3838706016922767313}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90e9629fa61aadf4f8fba8a497509480, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  drops:
+  - itemName: Muslo
+    amount: 1
 --- !u!195 &5098099927644187195
 NavMeshAgent:
   m_ObjectHideFlags: 0

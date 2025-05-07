@@ -313,6 +313,9 @@ PrefabInstance:
       addedObject: {fileID: 7779319540427226597}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b79d752bc94b15e4ea92594d9ddedf83, type: 3}
       insertIndex: -1
+      addedObject: {fileID: -2011296380388893005}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b79d752bc94b15e4ea92594d9ddedf83, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 3289889020700899815}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b79d752bc94b15e4ea92594d9ddedf83, type: 3}
       insertIndex: -1
@@ -346,6 +349,21 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   returnRadius: 5
+--- !u!114 &-2011296380388893005
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1407449045935575851}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90e9629fa61aadf4f8fba8a497509480, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  drops:
+  - itemName: Queso
+    amount: 1
 --- !u!195 &3289889020700899815
 NavMeshAgent:
   m_ObjectHideFlags: 0

@@ -149,6 +149,9 @@ PrefabInstance:
       addedObject: {fileID: 5974068101871674470}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 25e92afa820340a4a8daba67e17919b7, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 6569834182240018795}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 25e92afa820340a4a8daba67e17919b7, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 6026395152307124935}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 25e92afa820340a4a8daba67e17919b7, type: 3}
       insertIndex: -1
@@ -182,6 +185,21 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   returnRadius: 5
+--- !u!114 &6569834182240018795
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9131287641059738864}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90e9629fa61aadf4f8fba8a497509480, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  drops:
+  - itemName: Cebolla
+    amount: 1
 --- !u!195 &6026395152307124935
 NavMeshAgent:
   m_ObjectHideFlags: 0

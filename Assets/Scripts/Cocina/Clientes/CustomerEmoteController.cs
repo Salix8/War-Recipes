@@ -25,6 +25,8 @@ public class CustomerEmoteController : MonoBehaviour
     private float waitTime = 0f;
     private bool isWaiting = false;
 
+    private Sprite currentEmoteSprite; 
+
     void Start()
     {
         if (emoteRoot != null)
@@ -93,14 +95,23 @@ public class CustomerEmoteController : MonoBehaviour
         ShowEmote(emoteEncantado);
     }
 
-    private void ShowEmote(Sprite sprite)
+private void ShowEmote(Sprite sprite)
+{
+    if (emoteRenderer == null || sprite == null) return;
+
+    // Ignora el emoteDefault en la cinta
+    if (sprite == emoteDefault) return;
+
+    if (sprite != currentEmoteSprite)
     {
-        if (emoteRenderer != null && sprite != null)
-        {
-            emoteRenderer.sprite = sprite;
-            emoteRoot.SetActive(true);
-        }
+        currentEmoteSprite = sprite;
+        emoteRenderer.sprite = sprite;
+        emoteRoot.SetActive(true);
+
+        EmoteUIQueue.Instance?.AddEmote(sprite);
     }
+}
+
 
     public void HideEmote()
     {

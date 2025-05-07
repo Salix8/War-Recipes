@@ -8,7 +8,7 @@ public class CustomerButton : MonoBehaviour, IButtonAction
     {
         if (customerManager == null)
         {
-            customerManager = FindObjectOfType<CustomerManager>(); // Encuentra el CustomerManager en la escena
+            customerManager = FindFirstObjectByType<CustomerManager>(); // Encuentra el CustomerManager en la escena
         }
         
         if (customerManager == null)

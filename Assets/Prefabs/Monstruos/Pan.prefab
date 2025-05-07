@@ -317,6 +317,9 @@ PrefabInstance:
       addedObject: {fileID: 4623313183895475136}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 2c644f3b679c88c4cb2ec9ef13e6dab8, type: 3}
       insertIndex: -1
+      addedObject: {fileID: -2466028500358470571}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 2c644f3b679c88c4cb2ec9ef13e6dab8, type: 3}
+      insertIndex: -1
       addedObject: {fileID: -4877553143452645705}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 2c644f3b679c88c4cb2ec9ef13e6dab8, type: 3}
       insertIndex: -1
@@ -350,6 +353,21 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   returnRadius: 5
+--- !u!114 &-2466028500358470571
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5712986400727113594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90e9629fa61aadf4f8fba8a497509480, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  drops:
+  - itemName: Pan
+    amount: 1
 --- !u!195 &-4877553143452645705
 NavMeshAgent:
   m_ObjectHideFlags: 0

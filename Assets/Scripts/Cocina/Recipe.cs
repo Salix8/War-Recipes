@@ -1,10 +1,11 @@
 using UnityEngine;
+using System.Collections.Generic;  
 
 [System.Serializable]
 public class Recipe
 {
     public string name;
-    public Sprite icon;   // Icono para el botón
-    public string[] ingredients;
-    public float cookingTime;  // Tiempo de preparación en segundos
+    public Sprite icon;
+    public List<string> ingredients;
+    public float cookingTime;
 }

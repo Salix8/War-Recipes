@@ -52,6 +52,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: crate_cheese
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 90c59d26fd91fb44db9684c11acae3e4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

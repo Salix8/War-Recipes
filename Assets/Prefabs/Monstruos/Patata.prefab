@@ -1901,6 +1901,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7197626745570550221}
   - component: {fileID: -3816135466372647555}
+  - component: {fileID: -5294141576022562563}
   - component: {fileID: 6845011807743873731}
   - component: {fileID: 3035442097431388790}
   - component: {fileID: -7833575169406224259}
@@ -1948,6 +1949,21 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   returnRadius: 5
+--- !u!114 &-5294141576022562563
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7826721957318929535}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90e9629fa61aadf4f8fba8a497509480, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  drops:
+  - itemName: Patata
+    amount: 1
 --- !u!195 &6845011807743873731
 NavMeshAgent:
   m_ObjectHideFlags: 0
