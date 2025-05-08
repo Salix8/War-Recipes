@@ -42,4 +42,10 @@ public class EnemySpawner : MonoBehaviour
 
         Instantiate(prefab, spawnPosition, Quaternion.identity);
     }
+
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, spawnRadius);
+    }
 }

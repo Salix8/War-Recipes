@@ -102,9 +102,6 @@ public abstract class Enemy : MonoBehaviour
     protected virtual void Die() // soltar loot
     {
 
-        if (loot != null && loot.ingredientInstance != null)
-            Instantiate(loot.ingredientInstance.gameObject, transform.position, Quaternion.identity);
-
         if (animator != null)
             animator.SetTrigger("Die");
 
@@ -118,6 +115,10 @@ public abstract class Enemy : MonoBehaviour
             animLength = animator.GetCurrentAnimatorStateInfo(0).length;
 
         yield return new WaitForSeconds(animLength);
+
+        if (loot != null && loot.ingredientInstance != null)
+            Instantiate(loot.ingredientInstance.gameObject, transform.position, Quaternion.identity);
+
         Destroy(transform.parent.gameObject);
     }
 
