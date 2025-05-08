@@ -1,55 +1,55 @@
-using UnityEngine;
-using UnityEngine.AI;
-using Unity.AI.Navigation;
-using System.Collections;
+    using UnityEngine;
+    using UnityEngine.AI;
+    using Unity.AI.Navigation;
+    using System.Collections;
 
-public class GameInitializer : MonoBehaviour
-{
-    [SerializeField] RestaurantGenerator restaurantGenerator;
-    [SerializeField] GameObject playerPrefab;
-    [SerializeField] GameObject spawnPointPlayer;
-
-    private NavMeshSurface navMeshSurface;
-    private Transform floorParent;
-
-    void Start()
+    public class GameInitializer : MonoBehaviour
     {
-        StartCoroutine(InitializeGame());
-    }
+        [SerializeField] RestaurantGenerator restaurantGenerator;
+        [SerializeField] GameObject playerPrefab;
+        [SerializeField] GameObject spawnPointPlayer;
 
-    IEnumerator InitializeGame()
-    {
-        // Generar el Restaurante (Enviroment)
-        restaurantGenerator.GenerateEnvironment();
+        private NavMeshSurface navMeshSurface;
+        private Transform floorParent;
 
-        // Esperar un frame para asegurarnos de que los objetos han sido creados
-        yield return null;
-
-        // Buscar/Crear el NavMeshSurface en "Floor"
-        floorParent = GameObject.Find("Escenario/Floor")?.transform;
-        if (floorParent == null)
+        void Start()
         {
-            Debug.LogError("Floor no encontrado o no se ha generado. InitializeGame()");
-            yield break;
+            StartCoroutine(InitializeGame());
         }
 
-        GameObject floorObject = floorParent.gameObject;
-        // navMeshSurface = floorObject.GetComponent<NavMeshSurface>() ?? floorObject.AddComponent<NavMeshSurface>();
+        IEnumerator InitializeGame()
+        {
+            // Generar el Restaurante (Enviroment)
+            restaurantGenerator.GenerateEnvironment();
 
-        // Configurar la NavMesh para que use los hijos de Floor
-        // navMeshSurface.collectObjects = CollectObjects.Children;
+            // Esperar un frame para asegurarnos de que los objetos han sido creados
+            yield return null;
 
-        // Construir la NavMesh
-        // navMeshSurface.BuildNavMesh();
-        // Debug.Log("NavMesh Generada Correctamente.");
+            // Buscar/Crear el NavMeshSurface en "Floor"
+            floorParent = GameObject.Find("Escenario/Floor")?.transform;
+            if (floorParent == null)
+            {
+                Debug.LogError("Floor no encontrado o no se ha generado. InitializeGame()");
+                yield break;
+            }
 
-        SpawnPlayer();
+            GameObject floorObject = floorParent.gameObject;
+            // navMeshSurface = floorObject.GetComponent<NavMeshSurface>() ?? floorObject.AddComponent<NavMeshSurface>();
+
+            // Configurar la NavMesh para que use los hijos de Floor
+            // navMeshSurface.collectObjects = CollectObjects.Children;
+
+            // Construir la NavMesh
+            // navMeshSurface.BuildNavMesh();
+            // Debug.Log("NavMesh Generada Correctamente.");
+
+            SpawnPlayer();
+        }
+
+        void SpawnPlayer()
+        {
+            // Vector3 spawnPosition = spawnPointPlayer.transform.position;
+            Instantiate(playerPrefab, restaurantGenerator.GetDoorPosition(), restaurantGenerator.GetDoorRotation());
+            // Debug.Log("Personaje Spawned en: " + spawnPosition);
+        }
     }
-
-    void SpawnPlayer()
-    {
-        // Vector3 spawnPosition = spawnPointPlayer.transform.position;
-        Instantiate(playerPrefab, restaurantGenerator.GetDoorPosition(), restaurantGenerator.GetDoorRotation());
-        // Debug.Log("Personaje Spawned en: " + spawnPosition);
-    }
-}

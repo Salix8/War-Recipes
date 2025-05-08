@@ -21,6 +21,9 @@ public class RestaurantGenerator : MonoBehaviour
     [SerializeField] private GameObject[] randomObstacles;
     [SerializeField] private int cantidadObstaculos = 5;
 
+    [Header("Elementos de escena")]
+    [SerializeField] private GameObject triggerEPrefab;
+
 
 
     private float tileSize = 4f;
@@ -104,6 +107,7 @@ public class RestaurantGenerator : MonoBehaviour
         wallPositions.RemoveAt(doorIndex);
         wallRotations.RemoveAt(doorIndex);
         Instantiate(doorPrefab, doorPosition, doorRotation, wallsParent);
+        
 
         int deliveryIndex = validDoorIndexes[Random.Range(0, validDoorIndexes.Count - 1)];
         Vector3 deliveryPos = wallPositions[deliveryIndex];
@@ -124,6 +128,24 @@ public class RestaurantGenerator : MonoBehaviour
         for (int i = 0; i < wallPositions.Count; i++)
         {
             Instantiate(wallPrefab, wallPositions[i], wallRotations[i], wallsParent);
+        }
+
+
+
+        if (triggerEPrefab != null)
+        {
+            GameObject trigger = Instantiate(triggerEPrefab, puerta.transform);
+            trigger.transform.localPosition = Vector3.zero;
+            trigger.transform.localRotation = Quaternion.identity;
+
+            BoxCollider box = trigger.GetComponent<BoxCollider>();
+            if (box != null)
+            {
+                box.center = new Vector3(0, 2, 0);
+                box.size = new Vector3(3, 3, 2);
+            }
+            else
+                Debug.LogWarning("[RestaurantGenerator] Trigger E no tiene BoxCollider.");
         }
     }
 

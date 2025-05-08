@@ -7,5 +7,17 @@ AnimatorOverrideController:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Enemy_Algo_Override
-  m_Controller: {fileID: 0}
-  m_Clips: []
+  m_Controller: {fileID: 9100000, guid: e7e5bf994ec0fde41b45296d19803e98, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 4023202712368722038, guid: a4b8611925492cc46816368bc5fdebc0, type: 3}
+    m_OverrideClip: {fileID: -7834884072323577149, guid: e1498f5432ff90f41aca025808c3e76f, type: 3}
+  - m_OriginalClip: {fileID: 4447012609936615250, guid: a4b8611925492cc46816368bc5fdebc0, type: 3}
+    m_OverrideClip: {fileID: 4447012609936615250, guid: e1498f5432ff90f41aca025808c3e76f, type: 3}
+  - m_OriginalClip: {fileID: -3663672522963054737, guid: a4b8611925492cc46816368bc5fdebc0, type: 3}
+    m_OverrideClip: {fileID: -7655272897581899170, guid: e1498f5432ff90f41aca025808c3e76f, type: 3}
+  - m_OriginalClip: {fileID: 9061338213343248790, guid: a4b8611925492cc46816368bc5fdebc0, type: 3}
+    m_OverrideClip: {fileID: 9061338213343248790, guid: e1498f5432ff90f41aca025808c3e76f, type: 3}
+  - m_OriginalClip: {fileID: -4592842328519117816, guid: a4b8611925492cc46816368bc5fdebc0, type: 3}
+    m_OverrideClip: {fileID: 140615187318258251, guid: e1498f5432ff90f41aca025808c3e76f, type: 3}
+  - m_OriginalClip: {fileID: -5599002979973759676, guid: a4b8611925492cc46816368bc5fdebc0, type: 3}
+    m_OverrideClip: {fileID: -5599002979973759676, guid: e1498f5432ff90f41aca025808c3e76f, type: 3}

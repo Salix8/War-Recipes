@@ -8,7 +8,7 @@ public class CarretaExitTrigger : MonoBehaviour
     public GameObject interactPrompt;
 
     [Header("Referencia al BackButton")]
-    [SerializeField] private BackButton backButton; // AQUÍ
+    [SerializeField] private BackButton backButton;
 
     private bool playerInside = false;
 
