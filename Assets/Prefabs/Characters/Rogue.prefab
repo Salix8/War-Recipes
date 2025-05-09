@@ -354,6 +354,7 @@ MonoBehaviour:
   animator: {fileID: 1584178143225685442}
   rb: {fileID: 2764874661850621543}
   playerAttack: {fileID: 5378662756325459258}
+  isCombat: 1
 --- !u!114 &5378662756325459258
 MonoBehaviour:
   m_ObjectHideFlags: 0

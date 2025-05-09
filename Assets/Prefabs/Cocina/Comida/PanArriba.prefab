@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7166475075411241218}
   - component: {fileID: -7476502717152772148}
+  - component: {fileID: -835037299073399877}
   m_Layer: 0
   m_Name: PanArriba
   m_TagString: Untagged
@@ -46,6 +47,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ingredient: {fileID: 11400000, guid: 83520a2a1e0453e42a342dded1c907f6, type: 2}
+--- !u!114 &-835037299073399877
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4577398410683032284}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96fef41f5a19380499dbf25abd74a5a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attractionDistance: 10
+  collectDistance: 1.5
+  moveSpeed: 1
 --- !u!1001 &9120427659959079653
 PrefabInstance:
   m_ObjectHideFlags: 0

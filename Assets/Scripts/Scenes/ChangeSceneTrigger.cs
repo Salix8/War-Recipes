@@ -1,13 +1,13 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Collider))]
-public class CarretaSceneHandler : MonoBehaviour
+public class ChangeSceneTrigger : MonoBehaviour
 {
     [Header("UI")]
-    public GameObject interactPrompt;
+    [SerializeField] private GameObject interactPrompt;
 
-    [Header("ConfiguraciÃ³n de escena")]
-    [Tooltip("Si es verdadero, se usarÃ¡ BackButton. Si es falso, se usarÃ¡ GameManager con la escena dada.")]
+    [Header("Configuración de escena")]
+    [Tooltip("Si es verdadero, se usará BackButton. Si es falso, se usará GameManager con la escena dada.")]
     [SerializeField] private bool goBack = true;
 
     [Tooltip("Escena a cargar si no se usa BackButton.")]
@@ -21,14 +21,14 @@ public class CarretaSceneHandler : MonoBehaviour
     void Start()
     {
         if (interactPrompt == null)
-            interactPrompt = GameObject.Find("GoToCombat");
+            interactPrompt = GetInteractPrompt();
         if (interactPrompt != null)
             interactPrompt.SetActive(false);
     }
 
     void Update()
     {
-        if (playerInside && Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E) && playerInside)
         {
             if (goBack)
             {
@@ -65,5 +65,23 @@ public class CarretaSceneHandler : MonoBehaviour
             if (interactPrompt != null)
                 interactPrompt.SetActive(false);
         }
+    }
+
+    [System.Obsolete]
+    private GameObject GetInteractPrompt()
+    {
+        Canvas canvas = FindObjectOfType<Canvas>();
+        if (canvas != null)
+        {
+            Transform promptTransform = canvas.transform.Find("GoToCombat");
+            if (promptTransform != null)
+                interactPrompt = promptTransform.gameObject;
+            else
+                Debug.Log("[ChangeSceneTrigger] No se ha encontrado 'GoToCombat' dentro del canvas");
+        }
+        else
+            Debug.LogWarning("[ChangeSceneTrigger] No se ha encontrado ningún Canvas en la escena.");
+
+        return interactPrompt;
     }
 }

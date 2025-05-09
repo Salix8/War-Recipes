@@ -5,7 +5,7 @@ public class IngredientCollector : MonoBehaviour
     [Header("Configuracion")]
     [SerializeField] private float attractionDistance = 10f;
     [SerializeField] private float collectDistance = 1.5f;
-    [SerializeField] private float moveSpeed = 2f;
+    [SerializeField] private float moveSpeed = 1f;
 
     private Ingredient ingrediente;
     private Transform player;

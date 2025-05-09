@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SceneList 2
   m_EditorClassIdentifier: 
   sceneNames:
-  - Menu3Rojo
+  - MainMenu
   - Mapa3Rojo
   - Restaurante3Rojo
   - Combate3Rojo

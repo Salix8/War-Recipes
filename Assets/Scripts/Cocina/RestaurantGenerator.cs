@@ -27,6 +27,7 @@ public class RestaurantGenerator : MonoBehaviour
 
 
     private float tileSize = 4f;
+    private GameObject escenario;
     private Transform floorParent;
     private Transform wallsParent;
     private Transform obstaclesParent;
@@ -37,6 +38,12 @@ public class RestaurantGenerator : MonoBehaviour
 
     public void GenerateEnvironment()
     {
+        GameObject escenario = GameObject.Find("Escenario");
+        if (escenario != null && escenario.transform.childCount > 0)
+        {
+            Debug.Log("Escenario ya generado. No se vuelve a crear.");
+            return;
+        }
         CreateParentObjects();
         GenerateFloor();
         GenerateWalls();
@@ -45,7 +52,10 @@ public class RestaurantGenerator : MonoBehaviour
 
     void CreateParentObjects()
     {
-        GameObject escenario = GameObject.Find("Escenario") ?? new GameObject("Escenario");
+        //GameObject escenario = GameObject.Find("Escenario") ?? new GameObject("Escenario");
+        //Ya sabemos que: escenario == null
+        escenario = new GameObject("Escenario");
+        DontDestroyOnLoad(escenario);
 
         floorParent = new GameObject("Floor").transform;
         floorParent.SetParent(escenario.transform);
@@ -93,28 +103,52 @@ public class RestaurantGenerator : MonoBehaviour
         }
 
         // Filtrar válidas para puerta y entrega (no borde inferior)
+        // Filtrar posiciones válidas para puerta y entrega
         List<int> validDoorIndexes = new List<int>();
         for (int i = 0; i < wallPositions.Count; i++)
         {
             Vector3 pos = wallPositions[i];
-            if (!(Mathf.Approximately(pos.z, -1 * tileSize + wallSpacing) && Mathf.Approximately(pos.y, 0)))
-                validDoorIndexes.Add(i);
+            float z = pos.z;
+
+            // Muro inferior
+            float muroInferiorZ = -1 * tileSize + wallSpacing;
+            float adyacenteInferiorZ = 0 * tileSize;
+
+            // Filtrar muro inferior y su fila adyacente
+            if (Mathf.Approximately(z, muroInferiorZ) || Mathf.Approximately(z, adyacenteInferiorZ))
+                continue;
+
+            validDoorIndexes.Add(i);
         }
+
 
         int doorIndex = validDoorIndexes[Random.Range(0, validDoorIndexes.Count)];
         doorPosition = wallPositions[doorIndex];
         doorRotation = wallRotations[doorIndex];
+        GameObject doorInstance = Instantiate(doorPrefab, doorPosition, doorRotation, wallsParent);
+        if (IsTopOrRightWall(doorPosition))
+            doorInstance.transform.Rotate(0, 180f, 0);
+        doorRotation = doorInstance.transform.rotation;
+        // Elimina después de instanciar
         wallPositions.RemoveAt(doorIndex);
         wallRotations.RemoveAt(doorIndex);
-        Instantiate(doorPrefab, doorPosition, doorRotation, wallsParent);
-        
+        validDoorIndexes.Remove(doorIndex);
 
-        int deliveryIndex = validDoorIndexes[Random.Range(0, validDoorIndexes.Count - 1)];
+        // IMPORTANTE: recalcular índice relativo si se ha eliminado antes
+        int deliveryIndex;
+        do
+        {
+            deliveryIndex = validDoorIndexes[Random.Range(0, validDoorIndexes.Count)];
+        } while (deliveryIndex == doorIndex && validDoorIndexes.Count > 1);
+
         Vector3 deliveryPos = wallPositions[deliveryIndex];
         Quaternion deliveryRot = wallRotations[deliveryIndex];
+        GameObject deliveryInstance = Instantiate(deliveryPrefab, deliveryPos, deliveryRot, wallsParent);
+        if (IsTopOrRightWall(deliveryPos))
+            deliveryInstance.transform.Rotate(0, 180f, 0);
         wallPositions.RemoveAt(deliveryIndex);
         wallRotations.RemoveAt(deliveryIndex);
-        Instantiate(deliveryPrefab, deliveryPos, deliveryRot, wallsParent);
+
 
         int windowCount = Random.Range(minWindow, maxWindow);
         for (int i = 0; i < windowCount && wallPositions.Count > 0; i++)
@@ -134,9 +168,15 @@ public class RestaurantGenerator : MonoBehaviour
 
         if (triggerEPrefab != null)
         {
-            GameObject trigger = Instantiate(triggerEPrefab, puerta.transform);
+            GameObject trigger = Instantiate(triggerEPrefab, doorPrefab.transform);
             trigger.transform.localPosition = Vector3.zero;
             trigger.transform.localRotation = Quaternion.identity;
+
+            ChangeSceneTrigger scriptTrigger = trigger.GetComponent<ChangeSceneTrigger>();
+            if(scriptTrigger != null)
+            {
+                
+            }
 
             BoxCollider box = trigger.GetComponent<BoxCollider>();
             if (box != null)
@@ -148,6 +188,18 @@ public class RestaurantGenerator : MonoBehaviour
                 Debug.LogWarning("[RestaurantGenerator] Trigger E no tiene BoxCollider.");
         }
     }
+
+    bool IsTopOrRightWall(Vector3 pos)
+    {
+        float zTop = height * tileSize - 1.8f; // 1.8f = wallSpacing
+        float xRight = width * tileSize - 1.8f;
+
+        bool isTop = Mathf.Approximately(pos.z, zTop);
+        bool isRight = Mathf.Approximately(pos.x, xRight);
+
+        return isTop || isRight;
+    }
+
 
     public Vector3 GetDoorPosition()
     {
@@ -186,7 +238,7 @@ public class RestaurantGenerator : MonoBehaviour
 
             Vector3 posicion = TileToWorldPosition(tile);
             GameObject instancia = Instantiate(objeto, posicion, Quaternion.identity);
-            Debug.Log(posicion);
+            Log("Objetos utiles: " + posicion);
             instancia.transform.SetParent(obstaclesParent);
         }
 
@@ -203,7 +255,7 @@ public class RestaurantGenerator : MonoBehaviour
             GameObject prefab = randomObstacles[Random.Range(0, randomObstacles.Length)];
 
             GameObject instancia = Instantiate(prefab, posicion, Quaternion.identity);
-            Debug.Log(posicion);
+            Log("Obstaculos aleatorios:" + posicion);
             instancia.transform.SetParent(obstaclesParent);
             colocados++;
         }
@@ -220,5 +272,27 @@ public class RestaurantGenerator : MonoBehaviour
             return new Vector3(x, 0f, z);
         }
 
+    }
+
+    public void DestroyEnvironment()
+    {
+        GameObject escenario = GameObject.Find("Escenario");
+        if (escenario != null)
+        {
+            Destroy(escenario);
+            Debug.Log("Escenario destruido manualmente.");
+        }
+    }
+
+
+    [Header("Debug")]
+    [Tooltip("Enable to log scene changes and stack status to the console.")]
+    public bool enableDebugLogs = false;
+    private void Log(string message)
+    {
+        if (enableDebugLogs)
+        {
+            Debug.Log("[ChaserEnemy] " + message);
+        }
     }
 }

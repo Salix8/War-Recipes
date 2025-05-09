@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3594771535587046879}
   - component: {fileID: 3521464421083619703}
   - component: {fileID: 6805986041401345751}
+  - component: {fileID: 8519934618176565336}
   m_Layer: 0
   m_Name: Tomate
   m_TagString: Untagged
@@ -61,6 +62,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   transformedIngredient: {fileID: 11400000, guid: b98023da0dcb2ef4780f61f038dd56f0, type: 2}
   transformType: 0
+--- !u!114 &8519934618176565336
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8452770308222685867}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96fef41f5a19380499dbf25abd74a5a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attractionDistance: 10
+  collectDistance: 1.5
+  moveSpeed: 1
 --- !u!1001 &4419569387006544418
 PrefabInstance:
   m_ObjectHideFlags: 0

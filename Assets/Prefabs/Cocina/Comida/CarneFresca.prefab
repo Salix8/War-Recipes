@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4199956997463727266}
   - component: {fileID: 3734899529650326318}
   - component: {fileID: 575044576987288584}
+  - component: {fileID: 1202643531884579932}
   m_Layer: 0
   m_Name: CarneFresca
   m_TagString: Untagged
@@ -61,6 +62,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   transformedIngredient: {fileID: 11400000, guid: 047e01f277095294abfb706c306b1514, type: 2}
   transformType: 0
+--- !u!114 &1202643531884579932
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1713086899577627489}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96fef41f5a19380499dbf25abd74a5a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attractionDistance: 10
+  collectDistance: 1.5
+  moveSpeed: 2
 --- !u!1001 &1861076314091830114
 PrefabInstance:
   m_ObjectHideFlags: 0

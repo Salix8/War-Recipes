@@ -74,10 +74,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96fef41f5a19380499dbf25abd74a5a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ingrediente: {fileID: 0}
   attractionDistance: 10
   collectDistance: 1.5
-  moveSpeed: 5
+  moveSpeed: 1
 --- !u!1001 &8549560515086079107
 PrefabInstance:
   m_ObjectHideFlags: 0

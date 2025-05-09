@@ -53,25 +53,25 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.D)) // Press 'D' for Debug
-        {
-            Debug.Log("Current Scene: " + currentSceneName);
-            Debug.Log("Scene History Count: " + sceneHistory.Count);
-            Debug.Log("Scene History: " + string.Join(", ", sceneHistory.ToArray()));
+    //void Update()
+    //{
+    //    if (Input.GetKeyDown(KeyCode.D)) // Press 'D' for Debug
+    //    {
+    //        Debug.Log("Current Scene: " + currentSceneName);
+    //        Debug.Log("Scene History Count: " + sceneHistory.Count);
+    //        Debug.Log("Scene History: " + string.Join(", ", sceneHistory.ToArray()));
 
-            if (sceneList != null)
-            {
-                Debug.Log("Scene List Count: " + sceneList.sceneNames.Count);
-                Debug.Log("Scene List: " + string.Join(", ", sceneList.sceneNames.ToArray()));
-            }
-            else
-            {
-                Debug.LogError("SceneListSO is NULL!");
-            }
-        }
-    }
+    //        if (sceneList != null)
+    //        {
+    //            Debug.Log("Scene List Count: " + sceneList.sceneNames.Count);
+    //            Debug.Log("Scene List: " + string.Join(", ", sceneList.sceneNames.ToArray()));
+    //        }
+    //        else
+    //        {
+    //            Debug.LogError("SceneListSO is NULL!");
+    //        }
+    //    }
+    //}
 
 
     public void ChangeScene(string newSceneName)
@@ -90,6 +90,7 @@ public class GameManager : MonoBehaviour
                 Log("Scene history is full. Removing the oldest scene.");
                 sceneHistory.RemoveAt(0); // FIFO
             }
+            Log("SE ESTA AÑADIENDO UN ELEMENTO EN CONCRETO " + currentSceneName);
             sceneHistory.Add(currentSceneName);
         }
 
@@ -104,6 +105,10 @@ public class GameManager : MonoBehaviour
     // Public method to go back to the previous scene
     public void GoBack()
     {
+        foreach (var item in sceneHistory)
+        {
+            Log("sceneHistory ITEM " + item);
+        }
         if (sceneHistory.Count > 0)
         {
             // Get the previous scene from the history stack
@@ -117,6 +122,7 @@ public class GameManager : MonoBehaviour
             }
 
             // Change to the previous scene
+            Log("Esta es la anterior " + previousSceneName);
             currentSceneName = previousSceneName;
             LoadScene(currentSceneName);
 

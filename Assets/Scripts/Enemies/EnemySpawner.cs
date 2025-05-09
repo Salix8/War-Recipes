@@ -40,7 +40,7 @@ public class EnemySpawner : MonoBehaviour
         Vector3 offset = new Vector3(Random.Range(-spawnRadius, spawnRadius), 0, Random.Range(-spawnRadius, spawnRadius));
         Vector3 spawnPosition = transform.position + offset;
 
-        Instantiate(prefab, spawnPosition, Quaternion.identity);
+        Instantiate(prefab, spawnPosition, Quaternion.identity, gameObject.transform);
     }
 
     void OnDrawGizmosSelected()

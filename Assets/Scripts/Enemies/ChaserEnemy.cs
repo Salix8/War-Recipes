@@ -81,12 +81,12 @@ public class ChaserEnemy : Enemy
 
     [Header("Debug")]
     [Tooltip("Enable to log scene changes and stack status to the console.")]
-    public bool enableDebugLogs = true;
+    public bool enableDebugLogs = false;
     private void Log(string message)
     {
         if (enableDebugLogs)
         {
-            Debug.Log("[GameManager] " + message);
+            Debug.Log("[ChaserEnemy] " + message);
         }
     }
 

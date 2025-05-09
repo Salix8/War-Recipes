@@ -18,6 +18,7 @@ public class MovmentPlayer : MonoBehaviour
     private CharacterInputActions inputActions;
     private Vector2 moveInput;
     private bool isRolling = false;
+    [SerializeField] private bool isCombat = false;
 
     void Awake()
     {
@@ -36,9 +37,12 @@ public class MovmentPlayer : MonoBehaviour
 
         inputActions.WASD.Move.performed += ctx => moveInput = ctx.ReadValue<Vector2>();
         inputActions.WASD.Move.canceled += ctx => moveInput = Vector2.zero;
-        inputActions.WASD.Roll.performed += ctx => TryRoll();
-        inputActions.WASD.Attack1.performed += ctx => AtaqueBasico();
-        inputActions.WASD.Attack2.performed += ctx => AtaqueFuerte();
+        if (isCombat)
+        {
+            inputActions.WASD.Roll.performed += ctx => TryRoll();
+            inputActions.WASD.Attack1.performed += ctx => AtaqueBasico();
+            inputActions.WASD.Attack2.performed += ctx => AtaqueFuerte();
+        }
     }
 
     void OnDestroy()
