@@ -33,22 +33,18 @@ public static class ItemManager
 
     public static void EliminarIngrediente(Ingredient ingrediente)
     {
-        if (ingredientes.ContainsKey(ingrediente))
+        if (!ingredientes.ContainsKey(ingrediente))
+            Debug.LogWarning($"[ItemManager] Intento de eliminar un ingrediente que no hay: {ingrediente.name}");
+
+        ingredientes[ingrediente]--;
+        if (ingredientes[ingrediente] <= 0)
         {
-            ingredientes[ingrediente]--;
-            if (ingredientes[ingrediente] <= 0)
-            {
-                ingredientes.Remove(ingrediente);
-                Log($"Ingrediente eliminado completamente: {ingrediente.name}");
-            }
-            else
-            {
-                Log($"Cantidad de {ingrediente.name} disminuida a {ingredientes[ingrediente]}.");
-            }
+            ingredientes.Remove(ingrediente);
+            Log($"Ingrediente eliminado completamente: {ingrediente.name}");
         }
         else
         {
-            Debug.LogWarning($"[ItemManager] Intento de eliminar un ingrediente no presente: {ingrediente.name}");
+            Log($"Cantidad de {ingrediente.name} disminuida a {ingredientes[ingrediente]}.");
         }
     }
 

@@ -993,8 +993,10 @@ MonoBehaviour:
   obstaclesUtiles:
   - {fileID: 4227793911532311698, guid: 2d04adc54cb8fc04fa38b87fe7ff8b23, type: 3}
   - {fileID: 6263126504889883959, guid: e6e990c8e1a8b03499e88b4cc92871b7, type: 3}
-  - {fileID: 8128358149586136803, guid: a501c27558cf27e43afffdc919dd5514, type: 3}
-  - {fileID: 8128358149586136803, guid: a501c27558cf27e43afffdc919dd5514, type: 3}
+  - {fileID: 6059114329263476666, guid: 3b014b7377b0729479729d88d6f752bf, type: 3}
+  - {fileID: 6969243259968805347, guid: 8da5588c506f0554cab9e7e1e72336ca, type: 3}
+  - {fileID: 6515079994121392306, guid: 15405ee9648e7ab4598da04c7e16a260, type: 3}
+  - {fileID: 7620325980893146164, guid: 706c7fa66f77f5f41854d51e60ff0b91, type: 3}
   randomObstacles:
   - {fileID: 9126916007588827324, guid: fce4e54d3064e514db58d3fc76f1965b, type: 3}
   - {fileID: 1304480813080574625, guid: 0626b360da15b04419761bfaf310ff09, type: 3}
