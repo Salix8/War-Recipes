@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: PlayerStats
   m_EditorClassIdentifier: 
   maxHealth: 100
-  currentHealth: 52.544193
+  currentHealth: 100
   regenPerSecond: 0.5

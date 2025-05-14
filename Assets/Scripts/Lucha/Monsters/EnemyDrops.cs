@@ -4,7 +4,7 @@ using UnityEngine;
 public class Drop
 {
     public string itemName;
-    public int amount = 1; // Valor por defecto
+    public int amount = 1;
 }
 
 public class EnemyDrops : MonoBehaviour
@@ -15,10 +15,16 @@ public class EnemyDrops : MonoBehaviour
     {
         foreach (Drop drop in drops)
         {
-            // Asegúrate de que el nombre no esté vacío y la cantidad sea positiva
             if (!string.IsNullOrEmpty(drop.itemName) && drop.amount > 0)
             {
-                CharacterManagerCocina.Instance.AddIngredient(drop.itemName, drop.amount);
+                // Aumenta el conteo de ingredientes en el CookingCrateManager
+                CookingCrateManager.Instance.ModifyIngredient(drop.itemName, drop.amount);
+
+                // Actualiza el modelo visual en la caja flotante
+                if (SmoothFollowBox.Instance != null)
+                {
+                    SmoothFollowBox.Instance.ShowCollectedItem(drop.itemName);
+                }
             }
         }
     }

@@ -10,10 +10,11 @@ public class CookingCrateManager : MonoBehaviour
     public class CrateVisual
     {
         public string ingredientName;
-        public int startingAmount = 0;               // Puedes definir cuántos hay al inicio
-        public GameObject crateEmpty;                // Modelo vacío (ya en la escena)
-        public GameObject crateFull;                 // Modelo lleno (ya en la escena)
-        public TextMeshPro amountText;               // Texto encima de la caja
+        public int startingAmount = 0;
+
+        public GameObject crateEmpty;   // Sprite vacío (dentro del crate)
+        public GameObject crateFull;    // Sprite lleno (dentro del crate)
+        public TextMeshPro amountText;  // Texto visible encima del crate
     }
 
     public CrateVisual[] crateVisuals;
@@ -27,8 +28,13 @@ public class CookingCrateManager : MonoBehaviour
 
         foreach (var visual in crateVisuals)
         {
+            // Registrar cada ingrediente
             visualDict[visual.ingredientName] = visual;
+
+            // Guardar cantidad inicial
             ingredientAmounts[visual.ingredientName] = visual.startingAmount;
+
+            // Asegurar que el estado visual inicial es correcto
             UpdateCrates(visual.ingredientName, visual.startingAmount);
         }
     }
@@ -41,12 +47,14 @@ public class CookingCrateManager : MonoBehaviour
         var visual = visualDict[ingredient];
         bool hasItem = amount > 0;
 
+        // Mostrar u ocultar sprites
         if (visual.crateEmpty != null)
             visual.crateEmpty.SetActive(!hasItem);
 
         if (visual.crateFull != null)
             visual.crateFull.SetActive(hasItem);
 
+        // Actualizar el texto de cantidad
         if (visual.amountText != null)
         {
             visual.amountText.text = amount.ToString();
@@ -64,6 +72,7 @@ public class CookingCrateManager : MonoBehaviour
 
     void LateUpdate()
     {
+        // Siempre hacer que el texto mire hacia la cámara
         foreach (var visual in visualDict.Values)
         {
             if (visual.amountText != null)
