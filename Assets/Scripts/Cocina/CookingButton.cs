@@ -8,7 +8,6 @@ public class CookingButton : MonoBehaviour, IButtonAction
 
     private void OnMouseDown()
     {
-        // Llamar al evento de clic para este botón
         OnButtonClick();
     }
 
@@ -24,11 +23,15 @@ public class CookingButton : MonoBehaviour, IButtonAction
             {
                 ShowSecondaryButtons();
             }
+
             isExpanded = !isExpanded;
         }
-        else if (cookingInteractable != null)
+        else
         {
-            cookingInteractable.OnButtonClick();
+            if (cookingInteractable != null)
+            {
+                cookingInteractable.OnButtonClick(); // Esto abrirá recetas según la estación
+            }
         }
     }
 
@@ -39,6 +42,12 @@ public class CookingButton : MonoBehaviour, IButtonAction
             if (button != null)
             {
                 button.SetActive(true);
+
+                ButtonManager manager = button.GetComponent<ButtonManager>();
+                if (manager != null)
+                {
+                    manager.ApplyInactiveOpacity(); // Estética visual
+                }
             }
         }
     }

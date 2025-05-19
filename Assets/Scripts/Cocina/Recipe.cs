@@ -1,11 +1,20 @@
 using UnityEngine;
-using System.Collections.Generic;  
 
-[System.Serializable]
-public class Recipe
+public enum StationType
 {
-    public string name;
-    public Sprite icon;
-    public List<string> ingredients;
-    public float cookingTime;
+    Pan,
+    Pot,
+    Oven,
+    Fridge,
+    Picar
+}
+
+[CreateAssetMenu(fileName = "NewRecipe", menuName = "Recipe")]
+public class Recipe : ScriptableObject
+{
+    public string recipeName;
+    public StationType stationType;
+    public GameObject resultPrefab;
+    public float cookingTime = 3f;
+    public Ingredient[] ingredients;
 }

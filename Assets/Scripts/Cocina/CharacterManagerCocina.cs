@@ -1,81 +1,54 @@
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class CharacterManagerCocina : MonoBehaviour
 {
     public static CharacterManagerCocina Instance;
 
-    private Dictionary<string, int> ingredients = new Dictionary<string, int>();
+    public Transform[] spawnPoints;
+    public GameObject[] characterPrefabs;
 
     private void Awake()
     {
         if (Instance == null)
+        {
             Instance = this;
+        }
         else
+        {
             Destroy(gameObject);
-    }
-
-    public bool HasIngredients(List<string> recipeIngredients)
-    {
-        Dictionary<string, int> required = new Dictionary<string, int>();
-
-        // Contar cuántos de cada ingrediente se necesitan
-        foreach (string ingredient in recipeIngredients)
-        {
-            if (required.ContainsKey(ingredient))
-                required[ingredient]++;
-            else
-                required[ingredient] = 1;
-        }
-
-        // Verificar si los tenemos todos
-        foreach (var kvp in required)
-        {
-            if (!ingredients.ContainsKey(kvp.Key) || ingredients[kvp.Key] < kvp.Value)
-                return false;
-        }
-
-        return true;
-    }
-
-    public void UseIngredients(List<string> recipeIngredients)
-    {
-        Dictionary<string, int> toUse = new Dictionary<string, int>();
-
-        foreach (string ingredient in recipeIngredients)
-        {
-            if (toUse.ContainsKey(ingredient))
-                toUse[ingredient]++;
-            else
-                toUse[ingredient] = 1;
-        }
-
-        foreach (var kvp in toUse)
-        {
-            if (ingredients.ContainsKey(kvp.Key))
-            {
-                ingredients[kvp.Key] -= kvp.Value;
-                if (ingredients[kvp.Key] <= 0)
-                    ingredients.Remove(kvp.Key);
-
-                CookingCrateManager.Instance?.UpdateCrates(kvp.Key, ingredients.ContainsKey(kvp.Key) ? ingredients[kvp.Key] : 0);
-            }
         }
     }
 
-    public void AddIngredient(string ingredientName, int amount)
+public GameObject SpawnCharacter(int i, int j)
+{
+    if (i < 0 || i >= characterPrefabs.Length)
     {
-        if (ingredients.ContainsKey(ingredientName))
-            ingredients[ingredientName] += amount;
-        else
-            ingredients[ingredientName] = amount;
-
-        CookingCrateManager.Instance?.UpdateCrates(ingredientName, ingredients[ingredientName]);
+        Debug.LogError($"Índice {i} fuera de rango en characterPrefabs. Asegúrate de asignar prefabs y no pasar un índice inválido.");
+        return null;
     }
 
-    public void MoveToStation(Transform stationTransform)
+    GameObject character = Instantiate(characterPrefabs[i], new Vector3(i * 2, 0, j * 2), Quaternion.identity);
+    return character;
+}
+
+    // 🔽 NUEVO MÉTODO PARA MOVER AL PERSONAJE A UNA ESTACIÓN
+public void MoveToStation(GameObject character, Transform stationTransform)
+{
+    NavMeshAgent agent = character.GetComponent<NavMeshAgent>();
+    if (agent == null)
     {
-        // Lógica para mover al personaje si quieres
-        Debug.Log("Moviendo personaje a estación: " + stationTransform.name);
+        Debug.LogWarning("El personaje no tiene un NavMeshAgent.");
+        return;
     }
+
+    if (!agent.isOnNavMesh)
+    {
+        Debug.LogError("El agente no está en un NavMesh. Asegúrate de que el personaje esté sobre el NavMesh.");
+        return;
+    }
+
+    agent.SetDestination(stationTransform.position);
+}
+
 }

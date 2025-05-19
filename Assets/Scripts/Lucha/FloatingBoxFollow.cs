@@ -29,9 +29,10 @@ public class SmoothFollowBox : MonoBehaviour
 
     private Dictionary<string, GameObject> ingredientModelDict = new Dictionary<string, GameObject>();
     private GameObject currentVisual;
-    private Vector3 velocity = Vector3.zero;
     private NavMeshAgent agent;
     private Vector3 floatOffset;
+
+    private Transform crateParent; // El GameObject hijo "Crate"
 
     void Awake()
     {
@@ -46,7 +47,14 @@ public class SmoothFollowBox : MonoBehaviour
         floatOffset = new Vector3(0, hoverHeight, 0);
         transform.position = target.position + initialOffset;
 
-        // Inicializa el diccionario
+        // Buscar el objeto hijo "Crate"
+        crateParent = transform.Find("Crate");
+        if (crateParent == null)
+        {
+            Debug.LogError("No se encontró el objeto hijo 'Crate' en la caja flotante.");
+        }
+
+        // Inicializar los modelos visuales desde el objeto Crate
         foreach (var visual in ingredientVisuals)
         {
             if (visual.model != null && !string.IsNullOrEmpty(visual.ingredientName))

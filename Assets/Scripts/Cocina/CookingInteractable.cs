@@ -2,37 +2,57 @@ using UnityEngine;
 
 public class CookingInteractable : MonoBehaviour
 {
-    public GameObject button; // Referencia al botón en la escena
+    public GameObject button;
     private Camera mainCamera;
+
+    public Transform stationTransform; // Asigna este Transform en el Inspector (debe tener CookingStation)
     private CookingStation cookingStation;
 
     void Start()
     {
         mainCamera = Camera.main;
-        cookingStation = GetComponent<CookingStation>();
+
+        if (stationTransform == null)
+        {
+            Debug.LogError("stationTransform no está asignado en el Inspector.");
+            return;
+        }
+
+        cookingStation = stationTransform.GetComponent<CookingStation>();
+        if (cookingStation == null)
+        {
+            Debug.LogError("El Transform asignado no tiene un componente CookingStation.");
+            return;
+        }
+
+        if (CharacterManagerCocina.Instance == null)
+        {
+            Debug.LogError("CharacterManagerCocina.Instance es null. ¿Está el prefab/objeto en la escena?");
+            return;
+        }
+
+        GameObject character = GameObject.FindWithTag("Player"); // Tu personaje debe tener el tag "Player"
+        if (character == null)
+        {
+            Debug.LogError("No se encontró un personaje con el tag 'Player'.");
+            return;
+        }
+
 
         if (button != null)
         {
-            SetButtonOpacity(0.1f); // Muy transparente al inicio
-            button.SetActive(true); // Mostrar el botón al inicio
+            button.SetActive(true);
 
-            // Añadir eventos de ratón al botón
-            var buttonCollider = button.GetComponent<BoxCollider2D>();
-            if (buttonCollider == null)
+            var collider = button.GetComponent<BoxCollider2D>();
+            if (collider == null)
             {
-                buttonCollider = button.AddComponent<BoxCollider2D>();
-                buttonCollider.isTrigger = true;
+                collider = button.AddComponent<BoxCollider2D>();
+                collider.isTrigger = true;
             }
-            var cookingButton = button.GetComponent<CookingButton>();
-            if (cookingButton == null)
-            {
-                cookingButton = button.AddComponent<CookingButton>();
-            }
-            cookingButton.cookingInteractable = this;
-        }
-        else
-        {
-            Debug.LogError("Button is not assigned in the inspector.");
+
+            var btn = button.GetComponent<CookingButton>();
+            if (btn == null) btn = button.AddComponent<CookingButton>();
+            btn.cookingInteractable = this;
         }
     }
 
@@ -40,36 +60,36 @@ public class CookingInteractable : MonoBehaviour
     {
         if (button != null)
         {
-            // Orientar el botón hacia la cámara
             button.transform.LookAt(mainCamera.transform);
             button.transform.rotation = Quaternion.LookRotation(mainCamera.transform.forward);
         }
     }
 
-    private void SetButtonOpacity(float opacity)
+public void OnButtonClick()
+{
+    if (cookingStation != null)
     {
-        if (button != null)
-        {
-            Color color = button.GetComponent<SpriteRenderer>().color;
-            color.a = opacity;
-            button.GetComponent<SpriteRenderer>().color = color;
-        }
-    }
+        cookingStation.ShowRecipes();
 
-    public void OnButtonClick()
-    {
-        if (cookingStation != null)
+        // mover al personaje aquí si querés
+        GameObject character = GameObject.FindWithTag("Player");
+        if (character != null)
         {
-            cookingStation.ShowRecipes();
+            CharacterManagerCocina.Instance.MoveToStation(character, stationTransform);
         }
     }
+}
+
 
     public void OnSecondaryButtonClick(GameObject secondaryButton)
     {
-        // Mover al personaje al interactuable asociado al botón secundario
         if (secondaryButton != null)
         {
-            CharacterManagerCocina.Instance.MoveToStation(secondaryButton.transform);
+            var manager = FindFirstObjectByType<CharacterManagerCocina>();
+            if (manager != null)
+            {
+                manager.MoveToStation(secondaryButton, stationTransform);
+            }
         }
     }
 }
