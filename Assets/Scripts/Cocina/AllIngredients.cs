@@ -17,10 +17,28 @@ public class AllIngredients : MonoBehaviour
     }
     private void Update()
     {
-        if (!(playerCerca && Input.GetKeyDown(KeyCode.E)))
-            return;
-           
-        foreach(Ingredient item in ingredientesExtraibles)
-            ItemManager.AnyadirIngrediente(item);
+        if (playerCerca && Input.GetKeyDown(KeyCode.E))
+            foreach(Ingredient item in ingredientesExtraibles)
+                ItemManager.AnyadirIngrediente(item);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            playerCerca = true;
+            if (promptUI != null)
+                promptUI.SetActive(true);
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            playerCerca = false;
+            if (promptUI != null)
+                promptUI.SetActive(false);
+        }
     }
 }

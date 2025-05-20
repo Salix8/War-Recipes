@@ -25,5 +25,7 @@ public class PlayerHealth : MonoBehaviour
     private void Die()
     {
         Debug.Log("El jugador ha muerto.");
+        Destroy(gameObject);
+        GameManager.Instance.ChangeScene("MainMenu");
     }
 }

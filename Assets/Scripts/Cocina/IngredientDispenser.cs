@@ -29,13 +29,22 @@ public class IngredientDispenser : MonoBehaviour
     private void TryDispense()
     {
         if (!ItemManager.TieneIngrediente(ingredienteAExtraer))
+        {
             Debug.Log("[IngredientDispenser] El jugador no tiene ese ingrediente.");
+            return;
+        }
         
         ItemManager.EliminarIngrediente(ingredienteAExtraer);
         if (visualPrefab == null)
+        {
             Debug.LogWarning("[IngredientDispenser] No se ha asignado visualPrefab.");
+            return;
+        }
 
-        Instantiate(visualPrefab, transform.position + Vector3.up * 1.5f, Quaternion.identity);
+        GameObject instancia = Instantiate(visualPrefab, transform.position + Vector3.up * 1.5f, Quaternion.identity);
+        IngredientCollector collector = instancia.GetComponent<IngredientCollector>();
+        if (instancia != null)
+            Destroy(collector);
     }
 
     private void OnTriggerEnter(Collider other)

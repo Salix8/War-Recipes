@@ -69,6 +69,9 @@ public class ChaserEnemy : Enemy
 
     private void AttackPlayer()
     {
+        if (animator)
+            animator.SetTrigger("AttackTrigger");
+
         Log("¡El enemigo ataca al jugador!");
         PlayerHealth playerHealth = player.GetComponent<PlayerHealth>();
         if (playerHealth != null)

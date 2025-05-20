@@ -212,7 +212,7 @@ MonoBehaviour:
   attackRange: 2
   attackInnerRange: 1.5
   attackCooldown: 1
-  enableDebugLogs: 1
+  enableDebugLogs: 0
 --- !u!195 &590086131712107546
 NavMeshAgent:
   m_ObjectHideFlags: 0
