@@ -3,41 +3,18 @@ using UnityEngine;
 public class CookingInteractable : MonoBehaviour
 {
     public GameObject button;
+    public Transform destinationPoint; // ← Asigna aquí un GameObject vacío en el Inspector
     private Camera mainCamera;
-
-    public Transform stationTransform; // Asigna este Transform en el Inspector (debe tener CookingStation)
-    private CookingStation cookingStation;
 
     void Start()
     {
         mainCamera = Camera.main;
 
-        if (stationTransform == null)
+        if (destinationPoint == null)
         {
-            Debug.LogError("stationTransform no está asignado en el Inspector.");
+            Debug.LogError("No has asignado el destino (destinationPoint) para este botón.");
             return;
         }
-
-        cookingStation = stationTransform.GetComponent<CookingStation>();
-        if (cookingStation == null)
-        {
-            Debug.LogError("El Transform asignado no tiene un componente CookingStation.");
-            return;
-        }
-
-        if (CharacterManagerCocina.Instance == null)
-        {
-            Debug.LogError("CharacterManagerCocina.Instance es null. ¿Está el prefab/objeto en la escena?");
-            return;
-        }
-
-        GameObject character = GameObject.FindWithTag("Player"); // Tu personaje debe tener el tag "Player"
-        if (character == null)
-        {
-            Debug.LogError("No se encontró un personaje con el tag 'Player'.");
-            return;
-        }
-
 
         if (button != null)
         {
@@ -58,38 +35,28 @@ public class CookingInteractable : MonoBehaviour
 
     void Update()
     {
-        if (button != null)
+        if (button != null && mainCamera != null)
         {
             button.transform.LookAt(mainCamera.transform);
             button.transform.rotation = Quaternion.LookRotation(mainCamera.transform.forward);
         }
     }
 
-public void OnButtonClick()
-{
-    if (cookingStation != null)
+    public void OnButtonClick()
     {
-        cookingStation.ShowRecipes();
-
-        // mover al personaje aquí si querés
         GameObject character = GameObject.FindWithTag("Player");
-        if (character != null)
+        if (character == null)
         {
-            CharacterManagerCocina.Instance.MoveToStation(character, stationTransform);
+            Debug.LogError("No se encontró un GameObject con el tag 'Player'.");
+            return;
         }
-    }
-}
 
-
-    public void OnSecondaryButtonClick(GameObject secondaryButton)
-    {
-        if (secondaryButton != null)
+        if (destinationPoint == null)
         {
-            var manager = FindFirstObjectByType<CharacterManagerCocina>();
-            if (manager != null)
-            {
-                manager.MoveToStation(secondaryButton, stationTransform);
-            }
+            Debug.LogWarning("No se asignó el destino.");
+            return;
         }
+
+        CharacterManagerCocina.Instance.MoveToStation(character, destinationPoint);
     }
 }

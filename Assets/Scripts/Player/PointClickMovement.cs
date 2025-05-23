@@ -18,10 +18,19 @@ public class PointClickMovement : MonoBehaviour
         inputActions.PointClick.Enable();
     }
 
-    void OnDestroy()
-    {
+void OnDisable()
+{
+    if (inputActions != null)
         inputActions.PointClick.Disable();
-    }
+}
+
+void OnDestroy()
+{
+    if (inputActions != null)
+        inputActions.PointClick.Disable();
+}
+
+
 
     void Start()
     {
@@ -55,31 +64,77 @@ public class PointClickMovement : MonoBehaviour
             animator.SetBool("IsMoving", false);
             animator.SetFloat("Speed", 0f);
         }
-    }
 
-    void ProcessClick()
+        // Solución de "mirar hacia un punto bugueado" si está atascado
+    if (navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance && !navMeshAgent.pathPending)
     {
-        Vector2 mousePosition = Mouse.current.position.ReadValue();
-        Ray ray = Camera.main.ScreenPointToRay(mousePosition);
-        RaycastHit hit;
-
-        // 1️ Verificar si clicamos en un objeto interactuable
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity, interactableLayer))
+        // Si el agente no se está moviendo y ha llegado, asegúrate de que no siga girando
+        if (navMeshAgent.velocity.sqrMagnitude == 0f)
         {
-            InteractWithObject(hit.collider.gameObject);
-            return; // Evitar que el personaje se mueva si clicamos en un objeto
-        }
-
-        // 2️ Verificar si clicamos en el suelo
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity, groundLayer))
-        {
-            NavMeshHit navHit;
-            if (NavMesh.SamplePosition(hit.point, out navHit, 1.0f, NavMesh.AllAreas))
-            {
-                navMeshAgent.SetDestination(navHit.position);
-            }
+            navMeshAgent.ResetPath(); // Detiene todo movimiento residual
         }
     }
+
+    }
+
+void ProcessClick()
+{
+    Vector2 mousePosition = Mouse.current.position.ReadValue();
+    Ray ray = Camera.main.ScreenPointToRay(mousePosition);
+    RaycastHit hit;
+
+    // 1️ Interactuar si se clicó un objeto interactuable
+    if (Physics.Raycast(ray, out hit, Mathf.Infinity, interactableLayer))
+    {
+        InteractWithObject(hit.collider.gameObject);
+        return;
+    }
+
+    // Cancelar destino anterior para evitar arrastre de rotación o atasco
+    if (navMeshAgent.hasPath)
+    {
+        navMeshAgent.ResetPath();
+    }
+
+    // 2️ Movimiento si se clicó en el suelo
+    if (Physics.Raycast(ray, out hit, Mathf.Infinity, groundLayer))
+    {
+        NavMeshHit navHit;
+
+        // Tolerancia ajustable: 1.0f puede ser muy grande si tienes zonas estrechas
+        float maxDistanceToSample = 0.5f;
+
+        if (NavMesh.SamplePosition(hit.point, out navHit, maxDistanceToSample, NavMesh.AllAreas))
+        {
+            
+            NavMeshPath path = new NavMeshPath();
+        if (navMeshAgent.CalculatePath(navHit.position, path) && path.status == NavMeshPathStatus.PathComplete)
+        {
+            navMeshAgent.SetDestination(navHit.position);
+        }
+        else
+        {
+            Debug.Log("Destino no alcanzable. Ruta incompleta.");
+        }
+
+            // Seguridad adicional: verifica que el agente esté en el NavMesh
+                if (navMeshAgent != null && navMeshAgent.isOnNavMesh)
+                {
+                    navMeshAgent.SetDestination(navHit.position);
+                }
+                else
+                {
+                    Debug.LogWarning("El NavMeshAgent no está en una zona válida del NavMesh.");
+                }
+        }
+        else
+        {
+            Debug.Log("No se encontró una posición válida en el NavMesh cerca del punto clicado.");
+        }
+    }
+}
+
+
 
     void InteractWithObject(GameObject obj)
     {

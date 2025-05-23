@@ -17,12 +17,15 @@ public class AreaToggler : MonoBehaviour
 
         SetActiveObjects(areaAObjects, isAreaAActive);
 
+
         if (!isAreaAActive)
         {
             ResetOceanArea();
+            BackgroundMusic.Instance.CambiarEscenario("Oceano");
         }
         else
         {
+            BackgroundMusic.Instance.CambiarEscenario("Cocina");
             if (currentOceanInstance != null)
                 currentOceanInstance.SetActive(false);
         }
@@ -57,5 +60,6 @@ private void ResetOceanArea()
     private void Start()
     {
         SetActiveObjects(areaAObjects, isAreaAActive);
+        BackgroundMusic.Instance.CambiarEscenario("Cocina");
     }
 }

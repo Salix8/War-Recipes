@@ -33,22 +33,33 @@ public GameObject SpawnCharacter(int i, int j)
 }
 
     // 🔽 NUEVO MÉTODO PARA MOVER AL PERSONAJE A UNA ESTACIÓN
-public void MoveToStation(GameObject character, Transform stationTransform)
+public void MoveToStation(GameObject character, Transform destination)
 {
     NavMeshAgent agent = character.GetComponent<NavMeshAgent>();
     if (agent == null)
     {
-        Debug.LogWarning("El personaje no tiene un NavMeshAgent.");
+        Debug.LogWarning("El personaje no tiene NavMeshAgent.");
         return;
     }
 
     if (!agent.isOnNavMesh)
     {
-        Debug.LogError("El agente no está en un NavMesh. Asegúrate de que el personaje esté sobre el NavMesh.");
+        Debug.LogWarning("El personaje no está sobre el NavMesh.");
         return;
     }
 
-    agent.SetDestination(stationTransform.position);
+    NavMeshHit navHit;
+    if (NavMesh.SamplePosition(destination.position, out navHit, 1.0f, NavMesh.AllAreas))
+    {
+        agent.SetDestination(navHit.position);
+    }
+    else
+    {
+        Debug.LogWarning("El punto destino está fuera del NavMesh.");
+    }
 }
+
+
+
 
 }
